@@ -506,10 +506,15 @@ a.contact__link:hover { color: var(--or); }
 
 /* =====================================================================
    REVEAL ON SCROLL
+   Progressive enhancement : le contenu est TOUJOURS visible par défaut.
+   L'effet de reveal n'est activé que lorsque le JS a confirmé qu'il peut
+   le piloter (classe `reveal-ready` ajoutée sur <html>). Ainsi, si le JS
+   échoue ou est absent, la page reste parfaitement lisible (pas de page blanche).
    ===================================================================== */
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease) var(--d, 0s), transform .9s var(--ease) var(--d, 0s); }
-.reveal.is-in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+.reveal { opacity: 1; transform: none; }
+.reveal-ready .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease) var(--d, 0s), transform .9s var(--ease) var(--d, 0s); }
+.reveal-ready .reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal-ready .reveal { opacity: 1; transform: none; transition: none; } }
 
 /* =====================================================================
    RESPONSIVE
