@@ -12,17 +12,10 @@ const CONFIG = {
   /* -----------------------------------------------------------------
      LIEN DE RÉSERVATION
      -----------------------------------------------------------------
-     ⚠️  L'URL exacte de la fiche Fresha d'Ace Barber n'a pas pu être
-     vérifiée automatiquement. Par sécurité, aucun lien n'a été inventé.
-
-     👉 Remplacez la valeur ci-dessous par l'URL EXACTE de votre page de
-        réservation Fresha (elle ressemble à :
-        https://www.fresha.com/a/ace-barber-....-xxxxxxxx/booking).
-
-     Tant que cette valeur reste le lien générique Fresha, le bouton
-     « Prendre rendez-vous » ouvrira la recherche Fresha.
+     Page de réservation Fresha officielle d'Ace Barber. Cette valeur
+     pilote TOUS les boutons « Prendre rendez-vous » du site.
   ----------------------------------------------------------------- */
-  bookingUrl: "https://www.fresha.com/",
+  bookingUrl: "https://www.fresha.com/fr/a/ace-barber-reichstett-33-rue-du-general-leclerc-bswocfue/booking",
 
   // Adresse (utilisée pour le lien Google Maps)
   address: "33 Rue du Général Leclerc, 67116 Reichstett",
