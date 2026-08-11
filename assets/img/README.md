@@ -6,6 +6,9 @@ Placez ici les photos utilisées par le site. Fichiers attendus :
 |--------------------|--------------------------------------------------|
 | `IMG_3389.jpeg`    | Photo principale du salon — **fond du Hero** (haut de page) |
 | `IMG_3390.jpeg`    | Espace d'attente — **section « Savoir-faire »**  |
+| `coupe1.jpeg`      | Galerie « Le style Ace Barber » — photo 1 (couleur) |
+| `coupe2.jpeg`      | Galerie « Le style Ace Barber » — photo 2 (couleur) |
+| `coupe3.jpeg`      | Galerie « Le style Ace Barber » — photo 3 (couleur) |
 
 > Pour remplacer une photo plus tard : soit réutilisez le même nom de fichier,
 > soit mettez à jour le `src` correspondant dans `index.html`.
