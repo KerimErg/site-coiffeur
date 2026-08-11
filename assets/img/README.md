@@ -2,10 +2,13 @@
 
 Placez ici les photos utilisées par le site. Fichiers attendus :
 
-| Fichier                 | Utilisation sur le site                          |
-|-------------------------|--------------------------------------------------|
-| `salon-coiffure.jpeg`   | Photo principale — **fond du Hero** (haut de page) |
-| `espace-attente.jpeg`   | **Section « Savoir-faire »** — présente l'espace d'attente |
+| Fichier            | Utilisation sur le site                          |
+|--------------------|--------------------------------------------------|
+| `IMG_3389.jpeg`    | Photo principale du salon — **fond du Hero** (haut de page) |
+| `IMG_3390.jpeg`    | Espace d'attente — **section « Savoir-faire »**  |
+
+> Pour remplacer une photo plus tard : soit réutilisez le même nom de fichier,
+> soit mettez à jour le `src` correspondant dans `index.html`.
 
 ## Conseils
 
