@@ -1,205 +1,204 @@
 /* =====================================================================
-   ACE BARBER — Scripts
+   ACE BARBER — "The Ace Experience" · scripts
    --------------------------------------------------------------------
-   ⚙️  CONFIGURATION — modifiez uniquement le bloc ci-dessous.
+   ⚙️ CONFIGURATION — modifiez uniquement ce bloc.
    ===================================================================== */
-
 const CONFIG = {
-  // Téléphone (format international pour l'appel, format lisible pour l'affichage)
   phone: "+33767991719",
   phoneDisplay: "07 67 99 17 19",
-
-  /* -----------------------------------------------------------------
-     LIEN DE RÉSERVATION
-     -----------------------------------------------------------------
-     Page de réservation Fresha officielle d'Ace Barber. Cette valeur
-     pilote TOUS les boutons « Prendre rendez-vous » du site.
-  ----------------------------------------------------------------- */
   bookingUrl: "https://www.fresha.com/fr/a/ace-barber-reichstett-33-rue-du-general-leclerc-bswocfue/booking",
-
-  // Adresse (utilisée pour le lien Google Maps)
   address: "33 Rue du Général Leclerc, 67116 Reichstett",
 };
 
 /* =====================================================================
-   Rien à modifier en dessous de cette ligne.
-   --------------------------------------------------------------------
-   Chaque fonctionnalité est isolée dans son propre try/catch : si l'une
-   échoue (navigateur ancien, API manquante…), les autres continuent de
-   fonctionner et la page reste toujours affichée.
+   Rien à modifier en dessous.
+   Chaque fonctionnalité est isolée : une erreur n'interrompt pas le reste,
+   et le contenu reste toujours visible même si le JS échoue.
    ===================================================================== */
 (function () {
   "use strict";
+  var doc = document, root = doc.documentElement;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-  // Petit utilitaire : exécute une fonction sans jamais laisser une erreur
-  // interrompre le reste du script.
-  function safe(fn) {
-    try {
-      fn();
-    } catch (e) {
-      if (window.console && console.warn) console.warn("[Ace Barber]", e);
-    }
-  }
+  function safe(fn) { try { fn(); } catch (e) { if (window.console) console.warn("[Ace]", e); } }
 
-  /* ---------- REVEAL ON SCROLL (mis en place en premier) ----------
-     On n'active l'animation (qui masque le contenu au départ) QUE si
-     IntersectionObserver est disponible. Sinon, le contenu reste visible. */
+  /* ---------- Liens dynamiques ---------- */
   safe(function () {
-    var reveals = document.querySelectorAll(".reveal");
-    if (!reveals.length) return;
+    var maps = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.address);
+    doc.querySelectorAll("[data-phone-link]").forEach(function (el) { el.href = "tel:" + CONFIG.phone; });
+    doc.querySelectorAll("[data-booking-link]").forEach(function (el) { el.href = CONFIG.bookingUrl; });
+    doc.querySelectorAll("[data-maps-link]").forEach(function (el) { el.href = maps; });
+    var y = doc.querySelector("[data-year]"); if (y) y.textContent = String(new Date().getFullYear());
+  });
 
-    if (!("IntersectionObserver" in window)) {
-      // Pas de support : on ne masque rien, tout reste visible.
-      return;
-    }
-
-    // On indique au CSS qu'il peut masquer puis animer les éléments.
-    document.documentElement.classList.add("reveal-ready");
-
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-in");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
-    );
-    reveals.forEach(function (el) {
-      io.observe(el);
+  /* ---------- Services : clic = réservation ---------- */
+  safe(function () {
+    doc.querySelectorAll(".menu-line[data-booking]").forEach(function (el) {
+      el.addEventListener("click", function () { window.open(CONFIG.bookingUrl, "_blank", "noopener"); });
     });
+  });
 
-    // Filet de sécurité : si pour une raison quelconque l'observer ne
-    // déclenche pas (ex. onglet en arrière-plan), on révèle tout après 3s.
-    setTimeout(function () {
-      reveals.forEach(function (el) {
+  /* ---------- WebP : n'utiliser les <source> WebP que si le fichier existe ---------- */
+  safe(function () {
+    doc.querySelectorAll("source[data-srcset]").forEach(function (src) {
+      var url = src.getAttribute("data-srcset");
+      var probe = new Image();
+      probe.onload = function () { if (probe.naturalWidth > 0) src.srcset = url; };
+      probe.src = url; // si 404, onload ne se déclenche pas -> on garde le JPEG
+    });
+  });
+
+  /* ---------- Micro-intro : nettoyage après l'animation ---------- */
+  safe(function () {
+    var intro = doc.querySelector("[data-intro]");
+    if (!intro) return;
+    if (reduce) { intro.classList.add("is-done"); return; }
+    var kill = function () { intro.classList.add("is-done"); };
+    intro.addEventListener("animationend", function (e) { if (e.animationName === "introOut") kill(); });
+    setTimeout(kill, 2200); // filet de sécurité
+  });
+
+  /* ---------- REVEAL (mis en place en premier) ---------- */
+  safe(function () {
+    var items = doc.querySelectorAll(".reveal, .reveal-word");
+    if (!items.length || !("IntersectionObserver" in window)) return;
+    root.classList.add("reveal-ready");
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        // stagger sur les mots d'un même parent
+        if (el.classList.contains("reveal-word")) {
+          var sibs = Array.prototype.slice.call(el.parentNode.querySelectorAll(".reveal-word"));
+          var i = sibs.indexOf(el);
+          el.style.transitionDelay = (i * 0.06) + "s";
+        }
         el.classList.add("is-in");
+        io.unobserve(el);
       });
-    }, 3000);
+    }, { threshold: 0.14, rootMargin: "0px 0px -6% 0px" });
+
+    items.forEach(function (el) { io.observe(el); });
+    setTimeout(function () { items.forEach(function (el) { el.classList.add("is-in"); }); }, 3500);
   });
 
-  /* ---------- Injection des liens dynamiques ---------- */
+  /* ---------- Nav : état scrolled ---------- */
   safe(function () {
-    var mapsUrl =
-      "https://www.google.com/maps/search/?api=1&query=" +
-      encodeURIComponent(CONFIG.address);
-
-    document.querySelectorAll("[data-phone-link]").forEach(function (el) {
-      el.setAttribute("href", "tel:" + CONFIG.phone);
-    });
-    document.querySelectorAll("[data-phone-display]").forEach(function (el) {
-      el.textContent = CONFIG.phoneDisplay;
-    });
-    document.querySelectorAll("[data-booking-link]").forEach(function (el) {
-      el.setAttribute("href", CONFIG.bookingUrl);
-    });
-    document.querySelectorAll("[data-maps-link]").forEach(function (el) {
-      el.setAttribute("href", mapsUrl);
-    });
-  });
-
-  /* ---------- Année du footer ---------- */
-  safe(function () {
-    var yearEl = document.querySelector("[data-year]");
-    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
-  });
-
-  /* ---------- Nav : état "scrolled" ---------- */
-  safe(function () {
-    var nav = document.querySelector("[data-nav]");
+    var nav = doc.querySelector("[data-nav]");
     if (!nav) return;
-    var onScroll = function () {
-      nav.classList.toggle("is-scrolled", window.scrollY > 24);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    var on = function () { nav.classList.toggle("is-scrolled", window.scrollY > 20); };
+    on(); window.addEventListener("scroll", on, { passive: true });
   });
 
   /* ---------- Menu mobile ---------- */
   safe(function () {
-    var toggle = document.querySelector("[data-menu-toggle]");
-    var menu = document.querySelector("[data-mobile-menu]");
+    var toggle = doc.querySelector("[data-menu-toggle]"), menu = doc.querySelector("[data-mobile-menu]");
     if (!toggle || !menu) return;
-
-    var setMenu = function (open) {
+    var set = function (open) {
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
-      menu.hidden = !open;
-      document.body.style.overflow = open ? "hidden" : "";
+      menu.hidden = !open; doc.body.classList.toggle("menu-open", open);
     };
+    toggle.addEventListener("click", function () { set(menu.hidden); });
+    menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { set(false); }); });
+    window.addEventListener("keydown", function (e) { if (e.key === "Escape") set(false); });
+    var mq = window.matchMedia("(min-width: 861px)");
+    var onCh = function (e) { if (e.matches) set(false); };
+    if (mq.addEventListener) mq.addEventListener("change", onCh); else if (mq.addListener) mq.addListener(onCh);
+  });
 
-    toggle.addEventListener("click", function () {
-      setMenu(menu.hidden);
+  /* ---------- Parallaxe : photo dans le mot ACE + image du salon ---------- */
+  safe(function () {
+    if (reduce) return;
+    var ace = doc.querySelector("[data-hero-photo]");
+    var placeImg = doc.querySelector(".place__media img");
+    if (!ace && !placeImg) return;
+    var ticking = false;
+    var run = function () {
+      var y = window.scrollY;
+      if (ace) {
+        // déplace lentement la photo à l'intérieur des lettres (parallaxe subtile)
+        var p = 34 + Math.min(y, window.innerHeight) * 0.014;
+        ace.style.backgroundPosition = "center, center " + p + "%";
+      }
+      ticking = false;
+    };
+    window.addEventListener("scroll", function () {
+      if (ticking) return; ticking = true; window.requestAnimationFrame(run);
+    }, { passive: true });
+    run();
+  });
+
+  /* ---------- Jour d'ouverture en surbrillance ---------- */
+  safe(function () {
+    var hours = doc.querySelector("[data-hours]"); if (!hours) return;
+    var idx = (new Date().getDay() + 6) % 7; // lundi=0 … dimanche=6
+    var rows = hours.querySelectorAll("tbody tr");
+    if (rows[idx]) rows[idx].classList.add("is-today");
+  });
+
+  /* ---------- Dock mobile : apparaît après le hero ---------- */
+  safe(function () {
+    var dock = doc.querySelector("[data-dock]"), hero = doc.querySelector(".hero");
+    if (!dock || !hero || !("IntersectionObserver" in window)) return;
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { dock.classList.toggle("is-visible", !e.isIntersecting); });
+    }, { threshold: 0.15 }).observe(hero);
+  });
+
+  /* ---------- Curseur personnalisé (desktop, pointeur fin) ---------- */
+  safe(function () {
+    if (!finePointer || reduce) return;
+    var cur = doc.querySelector("[data-cursor]"); if (!cur) return;
+    doc.body.classList.add("has-cursor");
+    var x = -100, y = -100, cx = x, cy = y, active = false;
+    window.addEventListener("mousemove", function (e) {
+      x = e.clientX; y = e.clientY;
+      if (!active) { active = true; cur.classList.add("is-active"); }
+    }, { passive: true });
+    window.addEventListener("mouseleave", function () { active = false; cur.classList.remove("is-active"); });
+    var hoverSel = "a, button, .menu-line, [data-booking]";
+    doc.addEventListener("mouseover", function (e) { if (e.target.closest(hoverSel)) cur.classList.add("is-hover"); });
+    doc.addEventListener("mouseout", function (e) { if (e.target.closest(hoverSel)) cur.classList.remove("is-hover"); });
+    (function loop() {
+      cx += (x - cx) * 0.18; cy += (y - cy) * 0.18;
+      cur.style.transform = "translate3d(" + cx + "px," + cy + "px,0) translate(-50%,-50%)";
+      window.requestAnimationFrame(loop);
+    })();
+  });
+
+  /* ---------- Nav : surbrillance de la section courante (scroll-spy) ---------- */
+  safe(function () {
+    if (!("IntersectionObserver" in window)) return;
+    var links = {};
+    doc.querySelectorAll('.nav__links a[href^="#"]').forEach(function (a) {
+      links[a.getAttribute("href").slice(1)] = a;
     });
-    menu.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", function () {
-        setMenu(false);
+    var ids = Object.keys(links);
+    if (!ids.length) return;
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var id = entry.target.id;
+        ids.forEach(function (k) { links[k].classList.toggle("is-current", k === id); });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+    ids.forEach(function (id) { var s = doc.getElementById(id); if (s) spy.observe(s); });
+  });
+
+  /* ---------- Smooth scroll ancres + back-to-top ---------- */
+  safe(function () {
+    doc.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var id = a.getAttribute("href");
+        if (id === "#" || id.length < 2) return;
+        var t = doc.querySelector(id);
+        if (!t) return;
+        e.preventDefault();
+        t.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
       });
     });
-    window.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") setMenu(false);
-    });
-
-    // Referme le menu si on repasse en desktop.
-    // addEventListener sur MediaQueryList n'existe pas sur d'anciens
-    // navigateurs -> on protège l'appel (utilise addListener en secours).
-    var mq = window.matchMedia("(min-width: 981px)");
-    var onChange = function (e) {
-      if (e.matches) setMenu(false);
-    };
-    if (mq.addEventListener) mq.addEventListener("change", onChange);
-    else if (mq.addListener) mq.addListener(onChange);
-  });
-
-  /* ---------- Parallaxe légère du hero ---------- */
-  safe(function () {
-    var heroImg = document.querySelector(".hero__img");
-    if (!heroImg) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    var ticking = false;
-    window.addEventListener(
-      "scroll",
-      function () {
-        if (ticking) return;
-        ticking = true;
-        window.requestAnimationFrame(function () {
-          var y = Math.min(window.scrollY, window.innerHeight);
-          heroImg.style.transform = "translateY(" + y * 0.15 + "px)";
-          ticking = false;
-        });
-      },
-      { passive: true }
-    );
-  });
-
-  /* ---------- Mise en avant du jour d'ouverture ---------- */
-  safe(function () {
-    var hours = document.querySelector("[data-hours]");
-    if (!hours) return;
-    // getDay() : 0 = dimanche ... 6 = samedi -> ligne (lundi = 1re ligne)
-    var jsDay = new Date().getDay();
-    var rowIndex = (jsDay + 6) % 7; // lundi=0 ... dimanche=6
-    var rows = hours.querySelectorAll("tbody tr");
-    if (rows[rowIndex]) rows[rowIndex].classList.add("is-today");
-  });
-
-  /* ---------- Barre d'action mobile : apparaît après le hero ---------- */
-  safe(function () {
-    var actionBar = document.querySelector("[data-action-bar]");
-    var hero = document.querySelector(".hero");
-    if (!actionBar || !hero || !("IntersectionObserver" in window)) return;
-
-    var barObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          actionBar.classList.toggle("is-visible", !entry.isIntersecting);
-        });
-      },
-      { threshold: 0.2 }
-    );
-    barObserver.observe(hero);
   });
 })();
