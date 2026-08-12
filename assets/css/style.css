@@ -84,6 +84,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .btn--lg { --py: 18px; --px: 34px; font-size: .95rem; }
 .btn--block { width: 100%; }
+.btn:active { transform: scale(.98); }
 
 .btn--solid { background: var(--ivory); color: var(--ink); }
 .btn--solid::after {
@@ -174,6 +175,8 @@ body.has-cursor { cursor: none; }
 .nav__links a::after { content: ""; position: absolute; left: 0; bottom: -2px; height: 1px; width: 0; background: var(--ace); transition: width .4s var(--ease); }
 .nav__links a:hover { color: var(--ivory); }
 .nav__links a:hover::after { width: 100%; }
+.nav__links a.is-current { color: var(--ivory); }
+.nav__links a.is-current::after { width: 100%; background: var(--ace-bright); }
 
 .nav__end { display: flex; align-items: center; gap: 18px; }
 .link-phone { font-size: .82rem; font-weight: 600; letter-spacing: .03em; color: var(--ivory); position: relative; }
@@ -239,12 +242,13 @@ body.has-cursor { cursor: none; }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
   .hero__ace {
     color: transparent; -webkit-text-fill-color: transparent;
-    background-image: linear-gradient(rgba(11,12,13,.30), rgba(11,12,13,.55)), url("../img/IMG_3389.jpeg");
-    background-size: cover, 140% auto;
-    background-position: center, center 30%;
+    background-image: linear-gradient(rgba(11,12,13,.26), rgba(11,12,13,.5)), url("../img/IMG_3389.jpeg");
+    background-image: linear-gradient(rgba(11,12,13,.26), rgba(11,12,13,.5)), image-set(url("../img/IMG_3389.webp") type("image/webp"), url("../img/IMG_3389.jpeg") type("image/jpeg"));
+    background-size: cover, cover;
+    background-position: center, center 34%;
+    background-repeat: no-repeat;
     -webkit-background-clip: text; background-clip: text;
-    filter: saturate(1.05);
-    text-shadow: none;
+    filter: saturate(1.06) contrast(1.02);
   }
 }
 .hero__barber {
@@ -284,8 +288,11 @@ body.has-cursor { cursor: none; }
 .sec-head--split { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; }
 .sec-title {
   font-family: var(--display); text-transform: uppercase; line-height: .92;
-  font-size: clamp(2.6rem, 7vw, 6rem); letter-spacing: .01em;
+  font-size: clamp(2.6rem, 7vw, 6rem); letter-spacing: .01em; text-wrap: balance;
 }
+
+/* Décalage d'ancre : les titres ne passent plus sous la nav fixe */
+.manifesto, .services, .work, .place, .rep { scroll-margin-top: 84px; }
 
 /* =====================================================================
    03 · SERVICES — menu premium
@@ -346,7 +353,7 @@ body.has-cursor { cursor: none; }
    ===================================================================== */
 .place { display: grid; grid-template-columns: 1.05fr .95fr; background: var(--ink); }
 .place__media { position: relative; min-height: 60vh; overflow: hidden; }
-.place__media img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
+.place__media img { width: 100%; height: 100%; object-fit: cover; object-position: center 44%; }
 .place__media > picture:first-child { display: block; height: 100%; }
 .place__media-2 {
   position: absolute; right: 5%; bottom: 6%; width: 34%; aspect-ratio: 3/4;
@@ -406,7 +413,7 @@ a.place__link:hover { color: var(--ace-bright); }
 .foot__col h4 { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ace-bright); margin-bottom: 16px; font-weight: 600; }
 .foot__col a, .foot__col span { display: block; color: var(--ivory-2); font-size: .9rem; margin-bottom: 10px; transition: color .3s; }
 .foot__col a:hover { color: var(--ivory); }
-.foot__bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 24px 0 34px; color: rgba(236,231,219,.35); font-size: .78rem; }
+.foot__bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 24px 0 34px; color: rgba(236,231,219,.5); font-size: .78rem; }
 .foot__ace { letter-spacing: .4em; color: var(--ace-bright); }
 
 /* =====================================================================
@@ -428,7 +435,7 @@ a.place__link:hover { color: var(--ace-bright); }
    Contenu visible par défaut ; masqué/animé seulement si le JS confirme.
    ===================================================================== */
 .reveal, .reveal-word { opacity: 1; transform: none; }
-.reveal-ready .reveal { opacity: 0; transform: translateY(28px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+.reveal-ready .reveal { opacity: 0; transform: translateY(22px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .reveal-ready .reveal.is-in { opacity: 1; transform: none; }
 .reveal-ready .reveal-word { opacity: 0; transform: translateY(110%); }
 .reveal-ready .reveal-word.is-in { opacity: 1; transform: none; transition: opacity .7s var(--ease), transform .8s var(--ease); }

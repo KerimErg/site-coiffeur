@@ -119,8 +119,8 @@ const CONFIG = {
     var run = function () {
       var y = window.scrollY;
       if (ace) {
-        // déplace lentement la photo à l'intérieur des lettres
-        var p = 30 + Math.min(y, window.innerHeight) * 0.02;
+        // déplace lentement la photo à l'intérieur des lettres (parallaxe subtile)
+        var p = 34 + Math.min(y, window.innerHeight) * 0.014;
         ace.style.backgroundPosition = "center, center " + p + "%";
       }
       ticking = false;
@@ -167,6 +167,25 @@ const CONFIG = {
       cur.style.transform = "translate3d(" + cx + "px," + cy + "px,0) translate(-50%,-50%)";
       window.requestAnimationFrame(loop);
     })();
+  });
+
+  /* ---------- Nav : surbrillance de la section courante (scroll-spy) ---------- */
+  safe(function () {
+    if (!("IntersectionObserver" in window)) return;
+    var links = {};
+    doc.querySelectorAll('.nav__links a[href^="#"]').forEach(function (a) {
+      links[a.getAttribute("href").slice(1)] = a;
+    });
+    var ids = Object.keys(links);
+    if (!ids.length) return;
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var id = entry.target.id;
+        ids.forEach(function (k) { links[k].classList.toggle("is-current", k === id); });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+    ids.forEach(function (id) { var s = doc.getElementById(id); if (s) spy.observe(s); });
   });
 
   /* ---------- Smooth scroll ancres + back-to-top ---------- */
