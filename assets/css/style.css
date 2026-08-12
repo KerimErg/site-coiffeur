@@ -300,7 +300,7 @@ body.has-cursor { cursor: none; }
 .services { padding: clamp(80px, 12vw, 160px) 0; background: var(--ink); }
 .menu-list { list-style: none; padding: 0; border-top: 1px solid var(--line); }
 .menu-line {
-  display: grid; grid-template-columns: auto 1fr auto auto; align-items: baseline; gap: 20px;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 22px;
   padding: clamp(20px, 3vw, 34px) 4px; border-bottom: 1px solid var(--line);
   position: relative; transition: padding-left .45s var(--ease), color .35s var(--ease);
 }
@@ -309,18 +309,16 @@ body.has-cursor { cursor: none; }
   opacity: .10; transition: width .45s var(--ease); z-index: 0;
 }
 .menu-line > * { position: relative; z-index: 1; }
-.menu-line__no { font-family: var(--ui); font-size: .8rem; font-weight: 600; color: var(--ivory-2); letter-spacing: .1em; transition: color .35s; }
+.menu-line__no { font-family: var(--ui); font-size: .8rem; font-weight: 600; color: var(--ace-bright); letter-spacing: .1em; transition: color .35s; align-self: center; }
 .menu-line__name { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.6rem, 4vw, 3rem); letter-spacing: .01em; line-height: 1; }
 .menu-line__name em { font-family: var(--ui); font-style: normal; text-transform: none; font-size: .5em; font-weight: 500; color: var(--ace-bright); letter-spacing: .02em; }
-.menu-line__dots { border-bottom: 1px dotted var(--line-strong); align-self: center; height: 1px; }
-.menu-line__price { font-family: var(--edit); font-size: clamp(1.3rem, 2.4vw, 2rem); color: var(--ivory); white-space: nowrap; transition: color .35s; }
+.menu-line__go { font-size: 1.3rem; color: var(--ivory-2); opacity: .35; transition: opacity .35s var(--ease), transform .45s var(--ease), color .35s; }
 @media (hover: hover) {
   .menu-line:hover { padding-left: 26px; cursor: pointer; }
   .menu-line:hover::before { width: 100%; }
   .menu-line:hover .menu-line__no { color: var(--ace-bright); }
-  .menu-line:hover .menu-line__price { color: var(--ace-bright); }
+  .menu-line:hover .menu-line__go { opacity: 1; color: var(--ace-bright); transform: translateX(6px); }
 }
-.menu-line--feature .menu-line__price { color: var(--ace-bright); }
 
 .services__note { margin-top: 34px; display: flex; gap: 8px 20px; flex-wrap: wrap; align-items: baseline; color: var(--ivory-2); font-size: 1rem; }
 .services__note a { color: var(--ace-bright); font-weight: 600; border-bottom: 1px solid transparent; transition: border-color .3s; }
@@ -467,19 +465,73 @@ a.place__link:hover { color: var(--ace-bright); }
   body { padding-bottom: 74px; }
 }
 
+/* =====================================================================
+   MOBILE — composition dédiée (≤ 560px)
+   Objectif : même impact premium que desktop, pensé pour l'écran vertical.
+   ===================================================================== */
 @media (max-width: 560px) {
-  .hero__foot { flex-direction: column; align-items: flex-start; gap: 22px; }
+  /* Rythme vertical resserré mais aéré */
+  .services, .rep { padding-block: 64px; }
+  .work { padding: 64px 0 44px; }
+  .manifesto { padding: 72px 0; }
+  .final { padding: 82px 0; }
+  .sec-head { margin-bottom: 32px; }
+
+  /* ---------- HERO : composition centrée (groupe équilibré, sans espace mort) ---------- */
+  .hero { min-height: 100svh; padding-top: 74px; padding-bottom: 28px;
+          grid-template-rows: repeat(3, auto); align-content: center; row-gap: clamp(30px, 6.5vh, 60px); }
+  .hero__meta { font-size: .68rem; letter-spacing: .15em; }
+  .hero__title { line-height: .8; }
+  .hero__ace { font-size: clamp(5.5rem, 40vw, 13rem); background-position: center, center 42%; }
+  .hero__barber { font-size: clamp(2.8rem, 17.5vw, 7rem); -webkit-text-stroke-width: .7px; margin-top: -.04em; }
+  .hero__tag { font-size: 1.05rem; }
+  .hero__foot { flex-direction: column; align-items: stretch; gap: 18px; }
   .hero__cta { width: 100%; flex-direction: column; gap: 10px; }
   .hero__cta .btn { width: 100%; }
-  .hero__barber { -webkit-text-stroke-width: .6px; }
-  .place__grid { grid-template-columns: 1fr; }
-  .work__gallery { grid-template-columns: 1fr; }
-  .work__item--b, .work__item--c { grid-column: 1 / -1; }
-  .work__item--b .work__frame, .work__item--c .work__frame { aspect-ratio: 4/5; }
+  .hero__scroll { display: none; }
+
+  /* ---------- SERVICES ---------- */
+  .menu-line { gap: 16px; padding: 22px 2px; }
+  .menu-line__name { font-size: 1.9rem; }
+  .menu-line--feature .menu-line__name em { display: block; margin-top: 6px; font-size: .42em; }
+  .menu-line__go { opacity: .5; }
+  .services__note { margin-top: 26px; }
+
+  /* ---------- WORK : grandes images verticales, caption alternée ---------- */
+  .work__gallery { grid-template-columns: 1fr; gap: 22px; }
+  .work__item, .work__item--a, .work__item--b, .work__item--c { grid-column: 1 / -1; transform: none; }
+  .work__item .work__frame { aspect-ratio: 4 / 5; }
+  .work__item figcaption { justify-content: flex-start; font-size: .78rem; }
+  .work__item--b figcaption { justify-content: flex-end; }
+
+  /* ---------- PLACE ---------- */
+  .place__media { min-height: 54vh; }
+  .place__media-2 { width: 40%; right: 6%; bottom: 5%; border-width: 3px; }
+  .place__panel { padding: 52px var(--pad) 58px; }
+  .place__grid { grid-template-columns: 1fr; gap: 24px; }
+
+  /* ---------- REPUTATION ---------- */
+  .rep__hero { gap: 16px; }
   .rep__stats { grid-template-columns: 1fr; gap: 0; }
-  .rep__stat { border-bottom: 1px solid var(--line); padding-bottom: 20px; }
-  .foot__grid { grid-template-columns: 1fr; }
+  .rep__stat { border-bottom: 1px solid var(--line); padding: 20px 0; }
+
+  /* ---------- FINAL ---------- */
+  .final__title { font-size: clamp(2.6rem, 12vw, 5rem); }
+
+  /* ---------- FOOTER ---------- */
+  .foot__grid { grid-template-columns: 1fr; gap: 30px; }
   .menu__foot .btn { width: 100%; }
+}
+
+/* Petits écrans (≤ 400px : iPhone SE / Android 360) */
+@media (max-width: 400px) {
+  .hero__ace { font-size: 41vw; }
+  .hero__meta--tr { font-size: .62rem; }
+  .hero__meta--tl { font-size: .62rem; }
+  .menu-line__name { font-size: 1.7rem; }
+  .sec-title { font-size: 2.35rem; }
+  .final__title { font-size: 2.4rem; }
+  .manifesto__text { font-size: 2rem; }
 }
 
 /* =====================================================================

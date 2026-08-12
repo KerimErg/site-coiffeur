@@ -109,9 +109,9 @@ const CONFIG = {
     if (mq.addEventListener) mq.addEventListener("change", onCh); else if (mq.addListener) mq.addListener(onCh);
   });
 
-  /* ---------- Parallaxe : photo dans le mot ACE + image du salon ---------- */
+  /* ---------- Parallaxe : photo dans le mot ACE (desktop uniquement) ---------- */
   safe(function () {
-    if (reduce) return;
+    if (reduce || !finePointer) return;
     var ace = doc.querySelector("[data-hero-photo]");
     var placeImg = doc.querySelector(".place__media img");
     if (!ace && !placeImg) return;
