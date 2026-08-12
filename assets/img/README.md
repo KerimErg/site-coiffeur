@@ -1,30 +1,18 @@
 # Images du site Ace Barber
 
-Placez ici les photos utilisées par le site. Fichiers attendus :
+Photos réelles du salon + dérivés WebP optimisés (chargés en priorité, fallback JPEG automatique).
 
-| Fichier            | Utilisation sur le site                          |
-|--------------------|--------------------------------------------------|
-| `IMG_3389.jpeg`    | Photo principale du salon — **fond du Hero** (haut de page) |
-| `IMG_3390.jpeg`    | Espace d'attente — **section « Savoir-faire »**  |
-| `coupe1.jpeg`      | Galerie « Le style Ace Barber » — photo 1 (couleur) |
-| `coupe2.jpeg`      | Galerie « Le style Ace Barber » — photo 2 (couleur) |
-| `coupe3.jpeg`      | Galerie « Le style Ace Barber » — photo 3 (couleur) |
+| Fichier            | Utilisation sur le site (refonte « The Ace Experience »)        |
+|--------------------|-----------------------------------------------------------------|
+| `IMG_3389.jpeg`    | Salon — **remplit le mot « ACE » du Hero** + grande photo « Le salon » |
+| `IMG_3390.jpeg`    | Espace d'attente — encart de la section « Le salon »            |
+| `coupe1.jpeg`      | Réalisations — dégradé bouclé                                    |
+| `coupe2.jpeg`      | Réalisations — fade & boucles                                    |
+| `coupe3.jpeg`      | Réalisations — coiffé arrière & barbe                            |
+| `*.webp`           | Versions optimisées (générées automatiquement, ~60 % plus légères) |
 
-> Pour remplacer une photo plus tard : soit réutilisez le même nom de fichier,
-> soit mettez à jour le `src` correspondant dans `index.html`.
-
-## Conseils
-
-- Format paysage recommandé pour le Hero (au moins 1600 px de large).
-- Le site applique automatiquement un rendu noir & blanc élégant, cohérent
-  avec le design. Inutile de convertir les photos vous-même.
-- Si un fichier est absent, un fond sombre texturé prend le relais : le site
-  reste toujours présentable.
-
-## Comment ajouter les photos
-
-- **Via GitHub (le plus simple)** : ouvrez ce dossier `assets/img/` sur GitHub,
-  cliquez sur *Add file → Upload files*, glissez les deux images en respectant
-  exactement les noms ci-dessus, puis validez (*Commit changes*).
-- **Via Git** : copiez les fichiers dans `assets/img/`, puis
-  `git add assets/img/*.jpeg && git commit && git push`.
+## Remplacer / ajouter une photo
+1. Déposez le nouveau JPEG dans `assets/img/` (même nom pour un remplacement direct).
+2. Régénérez le `.webp` correspondant, ou supprimez l'ancien `.webp` (le site basculera
+   automatiquement sur le JPEG si le WebP est absent).
+3. Au besoin, ajustez le `src` / `object-position` dans `index.html`.
