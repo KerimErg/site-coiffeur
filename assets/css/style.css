@@ -451,7 +451,6 @@ a.place__link:hover { color: var(--ace-bright); }
 .foot__sign-logo { width: 30px; height: 30px; flex: none; object-fit: cover; border-radius: 50%; display: none;
   box-shadow: inset 0 0 0 1px rgba(240, 237, 230, .35), 0 0 0 1px rgba(240, 237, 230, .12); }
 .foot__sign.has-logo .foot__sign-logo { display: block; }
-.foot__ace { letter-spacing: .4em; color: var(--ace-bright); }
 
 /* =====================================================================
    DOCK MOBILE

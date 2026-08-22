@@ -54,7 +54,7 @@ const CONFIG = {
           '<a href="cookies.html">Politique de cookies</a></div>' +
       '</div>' +
       '<div class="wrap foot__bottom"><span>© <span data-year>2026</span> Ace Barber. Tous droits réservés.</span>' +
-      '<span class="foot__sign"><img class="foot__sign-logo" data-foot-sign-logo src="assets/img/logo.jpg" alt="Ace Barber" width="30" height="30" /><span class="foot__ace">A · C · E</span></span></div>';
+      '<span class="foot__sign"><img class="foot__sign-logo" data-foot-sign-logo src="assets/img/logo.jpg" alt="Ace Barber" width="30" height="30" /></span></div>';
   });
 
   /* ---------- Liens dynamiques ---------- */
