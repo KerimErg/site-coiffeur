@@ -435,6 +435,11 @@ a.place__link:hover { color: var(--ace-bright); }
 .foot__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 36px 30px; padding-bottom: clamp(40px, 5vw, 70px); border-bottom: 1px solid var(--line); }
 .foot__brand { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .foot__brand .foot__ig { flex-basis: 100%; }
+/* Logo en pied de page (même traitement qu'en en-tête : anneau ivoire sur fond sombre) */
+.foot__logo { width: 52px; height: 52px; flex: none; object-fit: cover; border-radius: 50%; display: none;
+  box-shadow: inset 0 0 0 1px rgba(240, 237, 230, .35), 0 0 0 1px rgba(240, 237, 230, .12); }
+.foot__brand.has-logo .foot__logo { display: block; }
+.foot__brand.has-logo .foot__mark { display: none; }
 .foot__link-btn { background: none; border: 0; cursor: pointer; }
 .foot__name { font-weight: 700; letter-spacing: .2em; }
 .foot__tag { color: var(--ivory-2); font-size: .8rem; margin-top: 4px; }

@@ -35,8 +35,8 @@ const CONFIG = {
     if (!slot) return;
     slot.innerHTML =
       '<div class="wrap foot__grid">' +
-        '<div class="foot__brand"><span class="brand__mark">A</span>' +
-          '<div><div class="foot__name">ACE BARBER</div><div class="foot__tag">Barber club — Reichstett</div></div>' +
+        '<div class="foot__brand"><img class="foot__logo" data-foot-logo src="assets/img/logo.jpg" alt="Ace Barber" width="52" height="52" /><span class="brand__mark foot__mark">A</span>' +
+          '<div><div class="foot__name">ACE BARBER</div><div class="foot__tag">Barbier — Reichstett</div></div>' +
           '<a class="foot__ig" href="' + CONFIG.instagramUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Instagram d\'Ace Barber (nouvel onglet)">' +
           '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg><span>@ace__barberr</span></a>' +
         '</div>' +
@@ -279,6 +279,13 @@ const CONFIG = {
       var brand = img.closest(".brand");
       if (!brand) return;
       var ok = function () { if (img.naturalWidth > 0) brand.classList.add("brand--has-logo"); };
+      if (img.complete) ok();
+      img.addEventListener("load", ok);
+    });
+    doc.querySelectorAll("[data-foot-logo]").forEach(function (img) {
+      var brand = img.closest(".foot__brand");
+      if (!brand) return;
+      var ok = function () { if (img.naturalWidth > 0) brand.classList.add("has-logo"); };
       if (img.complete) ok();
       img.addEventListener("load", ok);
     });
