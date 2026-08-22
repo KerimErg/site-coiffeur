@@ -32,18 +32,29 @@
 ### RGPD / cookies
 - [x] Audit réalisé : après auto-hébergement des polices, le site ne charge **aucun traceur** par défaut.
 - [x] Polices **auto-hébergées** (`assets/fonts/`) → plus aucune requête vers Google Fonts.
-- [x] Seul service tiers déposant des cookies : **Google Maps** — désormais **opt-in** (chargé uniquement après consentement).
-- [x] Bandeau de consentement : **Tout accepter / Tout refuser / Personnaliser** (refus aussi simple qu'accepter).
-- [x] Aucun traceur exécuté avant consentement (l'iframe Maps n'est créée qu'après accord).
-- [x] Fermer la fenêtre ≠ accepter (aucun consentement stocké sans choix explicite).
-- [x] Lien **« Gérer mes cookies »** dans le footer (rouvre les préférences, permet le retrait).
-- [x] Choix mémorisé localement (`ace_consent_v1`) — pas de donnée identifiante.
+- [x] Carte : **OpenStreetMap** (cadre intégré), qui ne dépose **aucun cookie** publicitaire ni de suivi.
+      Requête envoyée sans référent (`referrerpolicy="no-referrer"`).
+- [x] **Le site ne dépose aucun cookie et n'utilise aucun stockage local** (localStorage / sessionStorage).
+- [x] Conséquence : **aucun bandeau de consentement n'est nécessaire** (un bandeau ne gérant aucun traceur
+      serait lui-même non conforme). L'ancien bandeau et le mécanisme `ace_consent_v1` ont été **retirés**.
+- [x] Avis Google récupérés côté serveur → JSON même origine : **aucun cookie tiers** côté navigateur.
+
+### Logo
+- [x] Logo Ace Barber intégré dans l'en-tête (header) de toutes les pages, en rond.
+- [x] Repli automatique sur le mot-clé « A / ACE BARBER » si le fichier logo est absent
+      (détection via `data-brand-logo` + classe `brand--has-logo` en JS).
+- [ ] **Le propriétaire doit déposer le fichier** `assets/img/logo.png` dans le dépôt
+      (le logo n'a pas pu être récupéré automatiquement depuis Instagram).
 
 ### Pages juridiques
 - [x] `mentions-legales.html`, `confidentialite.html`, `cookies.html` créées et stylées.
 - [x] Accessibles depuis le footer de **toutes** les pages.
-- [x] Politique de confidentialité alignée sur les traitements **réels** (site vitrine, sans formulaire).
-- [x] Politique de cookies listant uniquement les cookies **réellement** susceptibles d'être déposés (aucun inventé).
+- [x] Mentions légales renseignées : **Ace Barber (SASU)**, président **Omer Sunbul**,
+      **SIREN 104 492 947**, **RCS Strasbourg**, **APE 9602A — Coiffure**, immatriculation **28 mai 2026**,
+      hébergeur **GitHub Pages**. Restent à compléter : e-mail, SIRET (NIC), capital social, TVA.
+- [x] Politique de confidentialité alignée sur les traitements **réels** (site vitrine, sans formulaire,
+      responsable = Ace Barber SASU / Omer Sunbul, carte OpenStreetMap, aucun cookie).
+- [x] Politique de cookies indiquant que le site **ne dépose aucun cookie** (rien d'inventé).
 
 ### Formulaires
 - [x] Audit : le site **ne contient aucun formulaire** → aucune collecte directe, aucune case à créer.
@@ -75,17 +86,23 @@
       Prestations affichées : Coupe classique · Barbe · Coloration · Soin visage vapeur.
 
 ### Mentions légales (obligatoire)
-- [ ] Raison sociale / statut juridique (EI, SASU, SARL…).
-- [ ] Nom du responsable / gérant et du **directeur de la publication**.
-- [ ] **SIREN / SIRET**, RCS/RNE le cas échéant, TVA intracommunautaire si assujetti.
-- [ ] **Adresse e-mail** de contact.
-- [ ] Confirmer l'**hébergeur réel** au moment de la publication (GitHub Pages par défaut ; à mettre à jour si changement).
-- [ ] Date de « dernière mise à jour ».
+- [x] Raison sociale / statut juridique : **Ace Barber — SASU**.
+- [x] Responsable / directeur de la publication : **Omer Sunbul** (président).
+- [x] **SIREN 104 492 947**, **RCS Strasbourg**, **APE 9602A — Coiffure**, immatriculation **28 mai 2026**.
+- [ ] **SIRET** complet (SIREN + NIC à 5 chiffres) — à compléter.
+- [ ] **Capital social** — à compléter.
+- [ ] **TVA intracommunautaire** (si assujetti) — à compléter.
+- [ ] **Adresse e-mail** de contact — à compléter.
+- [x] Hébergeur : **GitHub Pages** (à mettre à jour si changement d'hébergeur).
+- [x] Date de « dernière mise à jour » : 13 août 2026.
 
 ### Politique de confidentialité / cookies
-- [ ] Valider l'e-mail et l'identité du responsable de traitement.
+- [x] Responsable de traitement identifié : **Ace Barber SASU / Omer Sunbul**.
+- [ ] Valider l'**e-mail** du responsable de traitement (champ à compléter).
 - [ ] Vérifier les mentions de transfert hors UE selon les prestataires effectivement utilisés.
-- [ ] Dater les documents.
+- [x] Documents datés (13 août 2026).
+- [x] Cohérence carte : références **Google Maps** remplacées par **OpenStreetMap** ; mentions de
+      consentement / `ace_consent_v1` / « Gérer mes cookies » **retirées** (le site ne dépose aucun cookie).
 
 ### Divers
 - [ ] Si un **formulaire** de contact est ajouté plus tard → mettre à jour la politique de confidentialité,
@@ -98,8 +115,9 @@
 ## 🔎 TESTS EFFECTUÉS (automatisés, navigateur headless)
 - Rendu desktop (1440/1280) et mobile (360/390/430) : pas de débordement horizontal.
 - Console : aucune erreur applicative (hors ressources tierces volontairement bloquées dans l'environnement de test).
-- Bandeau cookies : Tout accepter / Tout refuser / Personnaliser / Enregistrer / Gérer mes cookies.
-- Carte Google : absente avant consentement, chargée uniquement après accord, retirée après refus.
+- Aucun cookie ni entrée localStorage déposés : plus de bandeau ni de mécanisme de consentement.
+- Carte OpenStreetMap : affichée directement, sans cookie.
+- Logo : affiché si `assets/img/logo.png` présent ; repli sur le mot-clé « ACE BARBER » sinon.
 - Avis Google : lecture de `google-reviews.json` et mise à jour de la note + du nombre (repli sur les valeurs statiques si échec).
 - Liens Instagram / Fresha / Google / pages juridiques présents et correctement attribués.
 

@@ -18,8 +18,11 @@
   <header class="nav is-scrolled" data-nav>
     <div class="nav__row">
       <a class="brand" href="index.html" aria-label="Ace Barber — accueil">
-        <span class="brand__mark">A</span>
-        <span class="brand__word">ACE BARBER</span>
+        <img class="brand__logo" data-brand-logo src="assets/img/logo.png" alt="Ace Barber" width="48" height="48" />
+        <span class="brand__fallback">
+          <span class="brand__mark">A</span>
+          <span class="brand__word">ACE BARBER</span>
+        </span>
       </a>
       <div class="nav__end">
         <a class="nav__ig" href="https://www.instagram.com/ace__barberr/" target="_blank" rel="noopener noreferrer" aria-label="Instagram d'Ace Barber (nouvel onglet)">
@@ -34,82 +37,35 @@
     <div class="wrap legal__wrap">
       <a class="legal__back" href="index.html">← Retour à l'accueil</a>
       <h1>Politique de cookies</h1>
-      <p class="legal__updated">Dernière mise à jour : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span></p>
+      <p class="legal__updated">Dernière mise à jour : 13 août 2026</p>
 
       <h2>1. Qu'est-ce qu'un cookie ?</h2>
-      <p>Un cookie est un petit fichier déposé sur votre appareil lors de la visite d'un site. Ce site utilise le strict minimum et <strong>aucun cookie publicitaire ni de suivi</strong>.</p>
+      <p>Un cookie est un petit fichier déposé sur votre appareil lors de la visite d'un site. Il permet, par exemple, de mesurer l'audience ou d'afficher de la publicité ciblée.</p>
 
-      <h2>2. Cookies &amp; stockage réellement utilisés</h2>
-
-      <h3>a) Strictement nécessaires (toujours actifs)</h3>
+      <h2>2. Les cookies utilisés par ce site</h2>
+      <p><strong>Ce site ne dépose aucun cookie et n'utilise aucun stockage local (localStorage / sessionStorage).</strong> Aucun consentement n'est donc requis pour le naviguer.</p>
+      <p>Concrètement, le site n'utilise :</p>
       <ul>
-        <li><strong>ace_consent_v1</strong> — stockage local (localStorage), déposé par ce site. Rôle : mémoriser votre choix concernant la carte Google Maps. Aucune donnée identifiante. Durée : jusqu'à effacement.</li>
-      </ul>
-      <p>Ces éléments ne nécessitent pas de consentement car indispensables au fonctionnement du mécanisme de préférences.</p>
-
-      <h3>b) Carte Google Maps (soumis à consentement, désactivé par défaut)</h3>
-      <ul>
-        <li><strong>Cookies Google</strong> (ex. NID, autres) — déposés par Google <em>uniquement</em> si vous acceptez d'afficher la carte dans la section « Le salon ». Finalité : fonctionnement de la carte. Émetteur : Google. Voir la <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener noreferrer">politique de Google</a>.</li>
-      </ul>
-      <p>Tant que vous n'avez pas accepté, la carte n'est pas chargée et aucun cookie Google n'est déposé. L'itinéraire reste accessible via un lien externe.</p>
-
-      <h2>3. Ce que le site n'utilise pas</h2>
-      <ul>
-        <li>Aucun outil d'analyse d'audience (pas de Google Analytics).</li>
-        <li>Aucun pixel ou cookie publicitaire / marketing.</li>
-        <li>Aucune police chargée depuis Google Fonts (polices hébergées localement).</li>
+        <li>aucun cookie strictement nécessaire ni de mesure de préférences ;</li>
+        <li>aucun outil d'analyse d'audience (pas de Google Analytics) ;</li>
+        <li>aucun pixel ni cookie publicitaire ou marketing ;</li>
+        <li>aucune police chargée depuis Google Fonts (les polices sont hébergées localement).</li>
       </ul>
 
-      <h2>4. Gérer votre consentement</h2>
-      <p>Vous pouvez à tout moment modifier ou retirer votre consentement via le lien <strong>« Gérer mes cookies »</strong> en bas de chaque page. Vous pouvez aussi supprimer les cookies et le stockage local depuis les réglages de votre navigateur.</p>
-      <p><button type="button" class="btn btn--line" data-cookie-manage>Gérer mes cookies</button></p>
+      <h2>3. La carte du salon</h2>
+      <p>La carte affichée dans la section « Le salon » est fournie par <strong>OpenStreetMap</strong> via un cadre intégré. OpenStreetMap ne dépose pas de cookie publicitaire ni de suivi. La requête est envoyée avec l'en-tête <code>referrerpolicy="no-referrer"</code> afin de limiter les informations transmises.</p>
 
-      <h2>5. Services tiers</h2>
-      <p>En cliquant sur les liens vers Fresha (réservation) ou Instagram, vous quittez ce site : leurs propres politiques de cookies s'appliquent alors.</p>
+      <h2>4. Services tiers</h2>
+      <p>En cliquant sur les liens vers Fresha (réservation), Instagram ou Google (avis), vous quittez ce site : les politiques de cookies de ces plateformes s'appliquent alors. Tant que vous ne cliquez pas sur ces liens, aucune donnée ne leur est transmise depuis ce site.</p>
 
-      <p class="legal__note">Aucun cookie n'a été inventé dans ce document : la liste ci-dessus reflète les éléments réellement susceptibles d'être déposés. En cas d'ajout futur d'un service tiers, cette page devra être mise à jour.</p>
+      <h2>5. Gérer les cookies dans votre navigateur</h2>
+      <p>Même si ce site ne dépose aucun cookie, vous pouvez à tout moment consulter, bloquer ou supprimer les cookies déposés par les sites que vous visitez depuis les réglages de votre navigateur (Chrome, Firefox, Safari, Edge…).</p>
+
+      <p class="legal__note">Aucun cookie n'a été inventé dans ce document : à la date de mise à jour ci-dessus, le site ne dépose effectivement aucun cookie. En cas d'ajout futur d'un service tiers déposant des cookies, un mécanisme de consentement sera mis en place et cette page devra être mise à jour.</p>
     </div>
   </main>
 
   <footer class="foot" data-legal-footer></footer>
-
-  <div class="cookie" data-cookie-banner hidden role="dialog" aria-modal="false" aria-label="Gestion des cookies">
-    <div class="cookie__inner">
-      <div class="cookie__text">
-        <h3>Cookies &amp; vie privée</h3>
-        <p>Ce site n'utilise aucun cookie publicitaire ni traceur. Seule la carte Google Maps (facultative) dépose des cookies lorsqu'elle est chargée. <a href="cookies.html">En savoir plus</a>.</p>
-      </div>
-      <div class="cookie__actions">
-        <button type="button" class="btn btn--line" data-cookie="reject">Tout refuser</button>
-        <button type="button" class="btn btn--line" data-cookie="customize">Personnaliser</button>
-        <button type="button" class="btn btn--line" data-cookie="accept">Tout accepter</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="cookie-modal" data-cookie-modal hidden role="dialog" aria-modal="true" aria-labelledby="cm-title">
-    <div class="cookie-modal__backdrop" data-cookie-close></div>
-    <div class="cookie-modal__panel">
-      <div class="cookie-modal__head">
-        <h3 id="cm-title">Préférences de cookies</h3>
-        <button type="button" class="cookie-modal__x" data-cookie-close aria-label="Fermer">&times;</button>
-      </div>
-      <div class="cookie-modal__body">
-        <div class="cookie-cat">
-          <div class="cookie-cat__row"><span class="cookie-cat__name">Strictement nécessaires</span><span class="cookie-cat__always">Toujours actifs</span></div>
-          <p>Mémorisation de votre choix de cookies. Indispensables au fonctionnement du site, aucun traceur.</p>
-        </div>
-        <div class="cookie-cat">
-          <label class="cookie-cat__row"><span class="cookie-cat__name">Carte Google Maps</span><input type="checkbox" data-cookie-cat="maps" /><span class="cookie-switch" aria-hidden="true"></span></label>
-          <p>Affiche la carte interactive. Google peut déposer des cookies. Désactivé par défaut.</p>
-        </div>
-      </div>
-      <div class="cookie-modal__foot">
-        <button type="button" class="btn btn--line" data-cookie="reject">Tout refuser</button>
-        <button type="button" class="btn btn--solid" data-cookie="save">Enregistrer mes choix</button>
-      </div>
-    </div>
-  </div>
 
   <script src="assets/js/main.js" defer></script>
 </body>

@@ -51,8 +51,7 @@ const CONFIG = {
         '<div class="foot__col"><h4>Informations</h4>' +
           '<a href="mentions-legales.html">Mentions légales</a>' +
           '<a href="confidentialite.html">Politique de confidentialité</a>' +
-          '<a href="cookies.html">Politique de cookies</a>' +
-          '<button type="button" class="foot__link-btn" data-cookie-manage>Gérer mes cookies</button></div>' +
+          '<a href="cookies.html">Politique de cookies</a></div>' +
       '</div>' +
       '<div class="wrap foot__bottom"><span>© <span data-year>2026</span> Ace Barber. Tous droits réservés.</span>' +
       '<span class="foot__ace">A · C · E</span></div>';
@@ -272,105 +271,18 @@ const CONFIG = {
     });
   });
 
-  /* =====================================================================
-     CONSENTEMENT COOKIES
-     - Aucun traceur n'est chargé avant l'accord.
-     - Seule la carte Google Maps est concernée (elle dépose des cookies).
-     - "Refuser" est aussi simple qu'"Accepter" ; fermer ≠ accepter.
-     ===================================================================== */
+  /* ---------- Logo : afficher le vrai logo dès que assets/img/logo.png existe ----------
+     Si le fichier est présent et se charge, on remplace le monogramme par le logo.
+     Sinon (fichier absent), on conserve le monogramme « A / ACE BARBER ». */
   safe(function () {
-    var KEY = "ace_consent_v1";
-    var banner = doc.querySelector("[data-cookie-banner]");
-    var modal = doc.querySelector("[data-cookie-modal]");
-    var mapWrap = doc.querySelector("[data-map]");
-    var mapToggle = doc.querySelector('[data-cookie-cat="maps"]');
-
-    function store(get, val) {
-      try {
-        if (get) { var v = localStorage.getItem(KEY); return v ? JSON.parse(v) : null; }
-        localStorage.setItem(KEY, JSON.stringify(val)); return true;
-      } catch (e) { return get ? null : false; }
-    }
-
-    function mapEmbedSrc() {
-      return "https://www.google.com/maps?q=" + encodeURIComponent(CONFIG.address) +
-        "&hl=fr&z=16&output=embed";
-    }
-    function loadMap() {
-      if (!mapWrap || mapWrap.querySelector("iframe")) return;
-      var ph = mapWrap.querySelector("[data-map-placeholder]");
-      if (ph) ph.hidden = true;
-      var f = doc.createElement("iframe");
-      f.src = mapEmbedSrc();
-      f.title = "Carte Google Maps — Ace Barber, 33 Rue du Général Leclerc, Reichstett";
-      f.loading = "lazy";
-      f.width = "100%"; f.height = "320";
-      f.referrerPolicy = "no-referrer-when-downgrade";
-      f.setAttribute("allowfullscreen", "");
-      mapWrap.appendChild(f);
-    }
-    function unloadMap() {
-      if (!mapWrap) return;
-      var f = mapWrap.querySelector("iframe"); if (f) f.remove();
-      var ph = mapWrap.querySelector("[data-map-placeholder]"); if (ph) ph.hidden = false;
-    }
-
-    function apply(consent) {
-      if (consent && consent.maps) loadMap(); else unloadMap();
-    }
-    function hideBanner() { if (banner) banner.hidden = true; }
-    function showBanner() { if (banner) banner.hidden = false; }
-    function openModal() {
-      if (!modal) return;
-      var c = store(true) || { maps: false };
-      if (mapToggle) mapToggle.checked = !!c.maps;
-      modal.hidden = false;
-    }
-    function closeModal() { if (modal) modal.hidden = true; }
-
-    function decide(consent) {
-      store(false, { maps: !!consent.maps, ts: Date.now() });
-      apply(consent);
-      hideBanner(); closeModal();
-    }
-
-    // État initial
-    var existing = store(true);
-    if (existing) { apply(existing); hideBanner(); }
-    else { showBanner(); } // non décidé -> bannière visible, carte OFF
-
-    // Actions
-    doc.querySelectorAll('[data-cookie="accept"]').forEach(function (b) {
-      b.addEventListener("click", function () { decide({ maps: true }); });
-    });
-    doc.querySelectorAll('[data-cookie="reject"]').forEach(function (b) {
-      b.addEventListener("click", function () { decide({ maps: false }); });
-    });
-    doc.querySelectorAll('[data-cookie="customize"]').forEach(function (b) {
-      b.addEventListener("click", openModal);
-    });
-    doc.querySelectorAll('[data-cookie="save"]').forEach(function (b) {
-      b.addEventListener("click", function () { decide({ maps: mapToggle ? !!mapToggle.checked : false }); });
-    });
-    doc.querySelectorAll("[data-cookie-manage]").forEach(function (b) {
-      b.addEventListener("click", function (e) { e.preventDefault(); openModal(); });
-    });
-    // Fermer la modale sans choisir = pas d'acceptation
-    doc.querySelectorAll("[data-cookie-close]").forEach(function (b) {
-      b.addEventListener("click", function () {
-        closeModal();
-        if (!store(true)) showBanner(); // aucune décision -> on garde la bannière
-      });
-    });
-    // Bouton "Afficher la carte" dans la section Le salon
-    doc.querySelectorAll("[data-map-enable]").forEach(function (b) {
-      b.addEventListener("click", function () { decide({ maps: true }); });
-    });
-    // Échap ferme la modale
-    window.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && modal && !modal.hidden) {
-        closeModal(); if (!store(true)) showBanner();
-      }
+    doc.querySelectorAll("[data-brand-logo]").forEach(function (img) {
+      var brand = img.closest(".brand");
+      if (!brand) return;
+      var ok = function () { if (img.naturalWidth > 0) brand.classList.add("brand--has-logo"); };
+      if (img.complete) ok();
+      img.addEventListener("load", ok);
     });
   });
+
+  /* Carte : OpenStreetMap, affichée directement (aucun cookie -> aucun consentement requis). */
 })();

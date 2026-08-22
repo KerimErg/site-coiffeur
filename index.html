@@ -61,8 +61,11 @@
   <header class="nav" data-nav>
     <div class="nav__row">
       <a class="brand" href="#top" aria-label="Ace Barber — accueil">
-        <span class="brand__mark">A</span>
-        <span class="brand__word">ACE BARBER</span>
+        <img class="brand__logo" data-brand-logo src="assets/img/logo.png" alt="Ace Barber" width="48" height="48" />
+        <span class="brand__fallback">
+          <span class="brand__mark">A</span>
+          <span class="brand__word">ACE BARBER</span>
+        </span>
       </a>
 
       <nav class="nav__links" aria-label="Navigation principale">
@@ -284,15 +287,12 @@
           <a class="btn btn--line" data-maps-link href="#" target="_blank" rel="noopener noreferrer">Itinéraire →</a>
         </div>
 
-        <!-- Carte Google : chargée uniquement après consentement (cookies cartographie) -->
-        <div class="place__map reveal" data-map>
-          <div class="map-off" data-map-placeholder>
-            <p>La carte Google Maps est désactivée tant que vous n'avez pas accepté les cookies de cartographie.</p>
-            <div class="map-off__actions">
-              <button type="button" class="btn btn--line" data-map-enable>Afficher la carte</button>
-              <a class="map-off__alt" data-maps-link href="#" target="_blank" rel="noopener noreferrer">Ouvrir dans Google Maps →</a>
-            </div>
-          </div>
+        <!-- Carte OpenStreetMap : affichée directement, sans cookie ni traceur -->
+        <div class="place__map reveal">
+          <iframe
+            title="Carte — Ace Barber, 33 Rue du Général Leclerc, Reichstett"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=7.7455%2C48.6430%2C7.7585%2C48.6510&layer=mapnik&marker=48.6470%2C7.7520"
+            loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
         </div>
       </div>
     </section>
@@ -372,7 +372,6 @@
         <a href="mentions-legales.html">Mentions légales</a>
         <a href="confidentialite.html">Politique de confidentialité</a>
         <a href="cookies.html">Politique de cookies</a>
-        <button type="button" class="foot__link-btn" data-cookie-manage>Gérer mes cookies</button>
       </div>
     </div>
     <div class="wrap foot__bottom">
@@ -388,52 +387,6 @@
       <span>Appeler</span>
     </a>
     <a class="dock__btn dock__btn--book" data-booking-link href="#" target="_blank" rel="noopener">Prendre rendez-vous</a>
-  </div>
-
-  <!-- ============ CONSENTEMENT COOKIES ============ -->
-  <div class="cookie" data-cookie-banner hidden role="dialog" aria-modal="false" aria-label="Gestion des cookies">
-    <div class="cookie__inner">
-      <div class="cookie__text">
-        <h3>Cookies &amp; vie privée</h3>
-        <p>Ce site n'utilise aucun cookie publicitaire ni traceur. Seule la carte Google Maps (facultative) dépose des cookies lorsqu'elle est chargée. <a href="cookies.html">En savoir plus</a>.</p>
-      </div>
-      <div class="cookie__actions">
-        <button type="button" class="btn btn--line" data-cookie="reject">Tout refuser</button>
-        <button type="button" class="btn btn--line" data-cookie="customize">Personnaliser</button>
-        <button type="button" class="btn btn--line" data-cookie="accept">Tout accepter</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="cookie-modal" data-cookie-modal hidden role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
-    <div class="cookie-modal__backdrop" data-cookie-close></div>
-    <div class="cookie-modal__panel">
-      <div class="cookie-modal__head">
-        <h3 id="cookie-modal-title">Préférences de cookies</h3>
-        <button type="button" class="cookie-modal__x" data-cookie-close aria-label="Fermer">&times;</button>
-      </div>
-      <div class="cookie-modal__body">
-        <div class="cookie-cat">
-          <div class="cookie-cat__row">
-            <span class="cookie-cat__name">Strictement nécessaires</span>
-            <span class="cookie-cat__always">Toujours actifs</span>
-          </div>
-          <p>Mémorisation de votre choix de cookies. Indispensables au fonctionnement du site, aucun traceur.</p>
-        </div>
-        <div class="cookie-cat">
-          <label class="cookie-cat__row">
-            <span class="cookie-cat__name">Carte Google Maps</span>
-            <input type="checkbox" data-cookie-cat="maps" />
-            <span class="cookie-switch" aria-hidden="true"></span>
-          </label>
-          <p>Affiche la carte interactive dans « Le salon ». Google peut déposer des cookies. Désactivé par défaut ; l'itinéraire reste accessible via un lien externe.</p>
-        </div>
-      </div>
-      <div class="cookie-modal__foot">
-        <button type="button" class="btn btn--line" data-cookie="reject">Tout refuser</button>
-        <button type="button" class="btn btn--solid" data-cookie="save">Enregistrer mes choix</button>
-      </div>
-    </div>
   </div>
 
   <script src="assets/js/main.js" defer></script>

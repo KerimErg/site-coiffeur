@@ -18,8 +18,11 @@
   <header class="nav is-scrolled" data-nav>
     <div class="nav__row">
       <a class="brand" href="index.html" aria-label="Ace Barber — accueil">
-        <span class="brand__mark">A</span>
-        <span class="brand__word">ACE BARBER</span>
+        <img class="brand__logo" data-brand-logo src="assets/img/logo.png" alt="Ace Barber" width="48" height="48" />
+        <span class="brand__fallback">
+          <span class="brand__mark">A</span>
+          <span class="brand__word">ACE BARBER</span>
+        </span>
       </a>
       <div class="nav__end">
         <a class="nav__ig" href="https://www.instagram.com/ace__barberr/" target="_blank" rel="noopener noreferrer" aria-label="Instagram d'Ace Barber (nouvel onglet)">
@@ -34,26 +37,26 @@
     <div class="wrap legal__wrap">
       <a class="legal__back" href="index.html">← Retour à l'accueil</a>
       <h1>Politique de confidentialité</h1>
-      <p class="legal__updated">Dernière mise à jour : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span></p>
+      <p class="legal__updated">Dernière mise à jour : 13 août 2026</p>
 
       <p>La présente politique décrit la manière dont le site d'Ace Barber traite les données à caractère personnel, conformément au Règlement général sur la protection des données (RGPD) et à la loi « Informatique et Libertés ».</p>
 
       <h2>1. Responsable du traitement</h2>
-      <p>Ace Barber — 33 Rue du Général Leclerc, 67116 Reichstett, France — <a href="tel:+33767991719">+33 7 67 99 17 19</a>. Coordonnées complètes de l'éditeur : voir les <a href="mentions-legales.html">mentions légales</a>. Identité juridique et e-mail de contact : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span>.</p>
+      <p><strong>Ace Barber</strong> (SASU), représentée par son Président <strong>Omer Sunbul</strong> — 33 Rue du Général Leclerc, 67116 Reichstett, France — <a href="tel:+33767991719">+33 7 67 99 17 19</a>. Coordonnées complètes de l'éditeur : voir les <a href="mentions-legales.html">mentions légales</a>. E-mail de contact : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span>.</p>
 
       <h2>2. Principe : un site « vitrine » sans collecte directe</h2>
-      <p>Le site est un site vitrine. Il <strong>ne comporte aucun formulaire</strong> et <strong>ne collecte aucune donnée personnelle vous concernant à des fins commerciales</strong>. Il n'utilise ni cookie publicitaire, ni outil d'analyse d'audience (pas de Google Analytics, pas de pixel marketing).</p>
+      <p>Le site est un site vitrine. Il <strong>ne comporte aucun formulaire</strong> et <strong>ne collecte aucune donnée personnelle vous concernant à des fins commerciales</strong>. Il n'utilise ni cookie publicitaire, ni outil d'analyse d'audience (pas de Google Analytics, pas de pixel marketing), ni stockage local (localStorage / sessionStorage).</p>
 
       <h2>3. Données réellement traitées</h2>
       <ul>
-        <li><strong>Préférence de cookies</strong> : un élément de stockage local (localStorage) conserve, sur votre appareil, votre choix concernant la carte Google Maps. Il ne contient aucune donnée identifiante et n'est jamais transmis à un tiers.</li>
+        <li><strong>Aucun cookie ni stockage local</strong> : le site ne dépose rien sur votre appareil et ne conserve aucune préférence côté navigateur. Aucun consentement n'est donc requis pour le naviguer.</li>
         <li><strong>Journaux techniques de l'hébergeur</strong> : comme tout site web, l'hébergeur peut enregistrer des données techniques de connexion (adresse IP, horodatage) à des fins de sécurité et de bon fonctionnement.</li>
       </ul>
 
       <h2>4. Services tiers réellement présents</h2>
       <ul>
         <li><strong>Fresha</strong> (réservation) : accessible via un lien. La prise de rendez-vous et les données que vous y saisissez sont traitées par Fresha selon sa propre politique.</li>
-        <li><strong>Google Maps</strong> (carte, facultative) : la carte n'est chargée <em>que</em> si vous y consentez. Une fois chargée, Google peut déposer des cookies et recevoir votre adresse IP.</li>
+        <li><strong>OpenStreetMap</strong> (carte) : la carte de la section « Le salon » est affichée via un cadre intégré OpenStreetMap. Aucun cookie publicitaire ni de suivi n'est déposé ; la requête est envoyée sans référent (<code>referrerpolicy="no-referrer"</code>).</li>
         <li><strong>Avis Google</strong> : la note et le nombre d'avis sont récupérés côté serveur puis affichés depuis un fichier hébergé sur ce site. Votre navigateur n'appelle pas Google pour cela ; aucun cookie tiers n'est déposé.</li>
         <li><strong>Instagram</strong> : accessible via un lien externe uniquement.</li>
       </ul>
@@ -62,8 +65,7 @@
       <h2>5. Finalités &amp; bases légales</h2>
       <ul>
         <li>Fonctionnement et sécurité du site — intérêt légitime.</li>
-        <li>Mémorisation du choix de cookies — obligation légale / bon fonctionnement du mécanisme de consentement.</li>
-        <li>Chargement de la carte Google Maps — <strong>consentement</strong> (révocable à tout moment).</li>
+        <li>Affichage de la carte et de la note d'avis — intérêt légitime (information du visiteur), sans dépôt de cookie ni traitement de données identifiantes côté navigateur.</li>
       </ul>
 
       <h2>6. Destinataires</h2>
@@ -74,60 +76,22 @@
 
       <h2>8. Durées de conservation</h2>
       <ul>
-        <li>Préférence de cookies : jusqu'à son effacement par vos soins ou expiration (max. 12 mois recommandé).</li>
+        <li>Aucune donnée n'est conservée par le site lui-même (ni cookie, ni stockage local).</li>
         <li>Journaux techniques de l'hébergeur : selon la politique de l'hébergeur.</li>
       </ul>
 
       <h2>9. Vos droits</h2>
-      <p>Vous disposez des droits d'accès, de rectification, d'effacement, d'opposition, de limitation et, lorsque applicable, de portabilité, ainsi que du droit de retirer votre consentement à tout moment (via « Gérer mes cookies » en bas de page). Pour exercer ces droits : <a href="tel:+33767991719">+33 7 67 99 17 19</a> ou <span class="todo">[E-MAIL À COMPLÉTER AVANT PUBLICATION]</span>.</p>
+      <p>Vous disposez des droits d'accès, de rectification, d'effacement, d'opposition, de limitation et, lorsque applicable, de portabilité. Pour exercer ces droits : <a href="tel:+33767991719">+33 7 67 99 17 19</a> ou <span class="todo">[E-MAIL À COMPLÉTER AVANT PUBLICATION]</span>.</p>
       <p>Vous pouvez également introduire une réclamation auprès de la <strong>CNIL</strong> — <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">www.cnil.fr</a>.</p>
 
-      <h2>10. Gestion des cookies</h2>
-      <p>Vous pouvez modifier ou retirer votre consentement à tout moment via le lien <strong>« Gérer mes cookies »</strong> présent dans le pied de page. Voir aussi la <a href="cookies.html">politique de cookies</a>.</p>
+      <h2>10. Cookies</h2>
+      <p>Ce site ne dépose aucun cookie. Pour plus de détails, voir la <a href="cookies.html">politique de cookies</a>.</p>
 
       <p class="legal__note">Document préparé sur la base des traitements réellement présents sur le site à ce jour. En cas d'ajout ultérieur d'un formulaire, d'un outil d'analyse ou d'un autre service, cette politique devra être mise à jour. Les champs <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span> relèvent de la responsabilité du propriétaire d'Ace Barber.</p>
     </div>
   </main>
 
   <footer class="foot" data-legal-footer></footer>
-
-  <div class="cookie" data-cookie-banner hidden role="dialog" aria-modal="false" aria-label="Gestion des cookies">
-    <div class="cookie__inner">
-      <div class="cookie__text">
-        <h3>Cookies &amp; vie privée</h3>
-        <p>Ce site n'utilise aucun cookie publicitaire ni traceur. Seule la carte Google Maps (facultative) dépose des cookies lorsqu'elle est chargée. <a href="cookies.html">En savoir plus</a>.</p>
-      </div>
-      <div class="cookie__actions">
-        <button type="button" class="btn btn--line" data-cookie="reject">Tout refuser</button>
-        <button type="button" class="btn btn--line" data-cookie="customize">Personnaliser</button>
-        <button type="button" class="btn btn--line" data-cookie="accept">Tout accepter</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="cookie-modal" data-cookie-modal hidden role="dialog" aria-modal="true" aria-labelledby="cm-title">
-    <div class="cookie-modal__backdrop" data-cookie-close></div>
-    <div class="cookie-modal__panel">
-      <div class="cookie-modal__head">
-        <h3 id="cm-title">Préférences de cookies</h3>
-        <button type="button" class="cookie-modal__x" data-cookie-close aria-label="Fermer">&times;</button>
-      </div>
-      <div class="cookie-modal__body">
-        <div class="cookie-cat">
-          <div class="cookie-cat__row"><span class="cookie-cat__name">Strictement nécessaires</span><span class="cookie-cat__always">Toujours actifs</span></div>
-          <p>Mémorisation de votre choix de cookies. Indispensables au fonctionnement du site, aucun traceur.</p>
-        </div>
-        <div class="cookie-cat">
-          <label class="cookie-cat__row"><span class="cookie-cat__name">Carte Google Maps</span><input type="checkbox" data-cookie-cat="maps" /><span class="cookie-switch" aria-hidden="true"></span></label>
-          <p>Affiche la carte interactive. Google peut déposer des cookies. Désactivé par défaut.</p>
-        </div>
-      </div>
-      <div class="cookie-modal__foot">
-        <button type="button" class="btn btn--line" data-cookie="reject">Tout refuser</button>
-        <button type="button" class="btn btn--solid" data-cookie="save">Enregistrer mes choix</button>
-      </div>
-    </div>
-  </div>
 
   <script src="assets/js/main.js" defer></script>
 </body>

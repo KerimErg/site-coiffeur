@@ -18,8 +18,11 @@
   <header class="nav is-scrolled" data-nav>
     <div class="nav__row">
       <a class="brand" href="index.html" aria-label="Ace Barber — accueil">
-        <span class="brand__mark">A</span>
-        <span class="brand__word">ACE BARBER</span>
+        <img class="brand__logo" data-brand-logo src="assets/img/logo.png" alt="Ace Barber" width="48" height="48" />
+        <span class="brand__fallback">
+          <span class="brand__mark">A</span>
+          <span class="brand__word">ACE BARBER</span>
+        </span>
       </a>
       <div class="nav__end">
         <a class="nav__ig" href="https://www.instagram.com/ace__barberr/" target="_blank" rel="noopener noreferrer" aria-label="Instagram d'Ace Barber (nouvel onglet)">
@@ -34,25 +37,28 @@
     <div class="wrap legal__wrap">
       <a class="legal__back" href="index.html">← Retour à l'accueil</a>
       <h1>Mentions légales</h1>
-      <p class="legal__updated">Dernière mise à jour : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span></p>
+      <p class="legal__updated">Dernière mise à jour : 13 août 2026</p>
 
       <h2>1. Éditeur du site</h2>
       <p>Le présent site est édité par :</p>
       <ul>
-        <li>Nom commercial : <strong>Ace Barber</strong></li>
-        <li>Raison sociale / statut : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span> (ex. entreprise individuelle, SASU, SARL…)</li>
-        <li>Nom du responsable / gérant : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span></li>
-        <li>Adresse : 33 Rue du Général Leclerc, 67116 Reichstett, France</li>
+        <li>Dénomination sociale : <strong>Ace Barber</strong></li>
+        <li>Forme juridique : <strong>SASU</strong> (société par actions simplifiée unipersonnelle)</li>
+        <li>Président : <strong>Omer Sunbul</strong></li>
+        <li>Adresse du siège : 33 Rue du Général Leclerc, 67116 Reichstett, France</li>
         <li>Téléphone : <a href="tel:+33767991719">+33 7 67 99 17 19</a></li>
         <li>E-mail : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span></li>
-        <li>SIREN : 104&nbsp;492&nbsp;947 <em>(issu de votre fiche societe.com — à confirmer)</em></li>
-        <li>SIRET (siège) : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span></li>
-        <li>RCS / RNE (le cas échéant) : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span></li>
+        <li>SIREN : 104&nbsp;492&nbsp;947</li>
+        <li>SIRET (siège) : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span> (SIREN + NIC à 5 chiffres)</li>
+        <li>RCS : Strasbourg 104&nbsp;492&nbsp;947</li>
+        <li>Code APE / NAF : 9602A — Coiffure</li>
+        <li>Date d'immatriculation : 28 mai 2026</li>
+        <li>Capital social : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span></li>
         <li>N° de TVA intracommunautaire (si assujetti) : <span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span></li>
       </ul>
 
       <h2>2. Responsable de la publication</h2>
-      <p><span class="todo">[À COMPLÉTER AVANT PUBLICATION]</span> (nom du responsable de la publication).</p>
+      <p>Omer Sunbul, en qualité de Président d'Ace Barber (SASU).</p>
 
       <h2>3. Hébergement du site</h2>
       <p>Le site est hébergé par <strong>GitHub Pages — GitHub, Inc.</strong>, 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis — <a href="https://github.com" target="_blank" rel="noopener noreferrer">github.com</a>.</p>
@@ -76,44 +82,6 @@
   </main>
 
   <footer class="foot" data-legal-footer></footer>
-
-  <div class="cookie" data-cookie-banner hidden role="dialog" aria-modal="false" aria-label="Gestion des cookies">
-    <div class="cookie__inner">
-      <div class="cookie__text">
-        <h3>Cookies &amp; vie privée</h3>
-        <p>Ce site n'utilise aucun cookie publicitaire ni traceur. Seule la carte Google Maps (facultative) dépose des cookies lorsqu'elle est chargée. <a href="cookies.html">En savoir plus</a>.</p>
-      </div>
-      <div class="cookie__actions">
-        <button type="button" class="btn btn--line" data-cookie="reject">Tout refuser</button>
-        <button type="button" class="btn btn--line" data-cookie="customize">Personnaliser</button>
-        <button type="button" class="btn btn--line" data-cookie="accept">Tout accepter</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="cookie-modal" data-cookie-modal hidden role="dialog" aria-modal="true" aria-labelledby="cm-title">
-    <div class="cookie-modal__backdrop" data-cookie-close></div>
-    <div class="cookie-modal__panel">
-      <div class="cookie-modal__head">
-        <h3 id="cm-title">Préférences de cookies</h3>
-        <button type="button" class="cookie-modal__x" data-cookie-close aria-label="Fermer">&times;</button>
-      </div>
-      <div class="cookie-modal__body">
-        <div class="cookie-cat">
-          <div class="cookie-cat__row"><span class="cookie-cat__name">Strictement nécessaires</span><span class="cookie-cat__always">Toujours actifs</span></div>
-          <p>Mémorisation de votre choix de cookies. Indispensables au fonctionnement du site, aucun traceur.</p>
-        </div>
-        <div class="cookie-cat">
-          <label class="cookie-cat__row"><span class="cookie-cat__name">Carte Google Maps</span><input type="checkbox" data-cookie-cat="maps" /><span class="cookie-switch" aria-hidden="true"></span></label>
-          <p>Affiche la carte interactive. Google peut déposer des cookies. Désactivé par défaut.</p>
-        </div>
-      </div>
-      <div class="cookie-modal__foot">
-        <button type="button" class="btn btn--line" data-cookie="reject">Tout refuser</button>
-        <button type="button" class="btn btn--solid" data-cookie="save">Enregistrer mes choix</button>
-      </div>
-    </div>
-  </div>
 
   <script src="assets/js/main.js" defer></script>
 </body>
