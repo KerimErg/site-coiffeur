@@ -1,0 +1,9 @@
+# Secrets / environnement — ne jamais committer
+.env
+.env.*
+!.env.example
+
+# Divers
+.DS_Store
+node_modules/
+*.log

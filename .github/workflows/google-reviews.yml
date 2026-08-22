@@ -1,0 +1,45 @@
+name: Sync Google reviews
+
+# Met à jour assets/data/google-reviews.json (note + nombre d'avis Google)
+# via l'API Places, avec la clé stockée dans les secrets du dépôt.
+# La clé n'est JAMAIS exposée au navigateur.
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # tous les jours à 06:00 UTC
+  workflow_dispatch: {}     # déclenchement manuel possible
+
+permissions:
+  contents: write
+
+concurrency:
+  group: google-reviews
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Récupérer la note & le nombre d'avis Google
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          GOOGLE_PLACE_ID: ${{ secrets.GOOGLE_PLACE_ID }}
+        run: node scripts/fetch-google-reviews.mjs
+
+      - name: Commiter si le fichier a changé
+        run: |
+          if ! git diff --quiet -- assets/data/google-reviews.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add assets/data/google-reviews.json
+            git commit -m "chore: sync Google reviews"
+            git push
+          else
+            echo "Aucun changement à committer."
+          fi

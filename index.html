@@ -13,13 +13,12 @@
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:image" content="assets/img/IMG_3389.jpeg" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap" rel="stylesheet" />
-
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230B0C0D'/%3E%3Ctext x='50' y='72' font-family='Arial Black,Impact,sans-serif' font-size='66' font-weight='900' fill='%234C9A73' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E" />
 
-  <!-- Préchargement de l'image du Hero (celle qui remplit le mot ACE) pour un affichage plus rapide -->
+  <!-- Polices auto-hébergées : préchargement des faces critiques -->
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/anton-latin.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-400-latin.woff2" crossorigin />
+  <!-- Préchargement de l'image du Hero (celle qui remplit le mot ACE) -->
   <link rel="preload" as="image" href="assets/img/IMG_3389.webp" type="image/webp" fetchpriority="high" />
 
   <link rel="stylesheet" href="assets/css/style.css" />
@@ -74,6 +73,9 @@
       </nav>
 
       <div class="nav__end">
+        <a class="nav__ig" href="https://www.instagram.com/ace__barberr/" target="_blank" rel="noopener noreferrer" aria-label="Instagram d'Ace Barber (nouvel onglet)">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
         <a class="link-phone" data-phone-link href="#" aria-label="Appeler Ace Barber">07 67 99 17 19</a>
         <a class="btn btn--solid" data-booking-link href="#" target="_blank" rel="noopener">Prendre rendez-vous</a>
         <button class="burger" data-menu-toggle aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
@@ -92,7 +94,11 @@
     <div class="menu__foot">
       <a class="btn btn--solid btn--block" data-booking-link href="#" target="_blank" rel="noopener">Prendre rendez-vous</a>
       <a class="btn btn--ghost btn--block" data-phone-link href="#">Appeler — 07 67 99 17 19</a>
-      <p class="menu__addr" data-maps-link-wrap><a data-maps-link href="#" target="_blank" rel="noopener">33 Rue du Général Leclerc · 67116 Reichstett</a></p>
+      <a class="menu__ig" href="https://www.instagram.com/ace__barberr/" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+        <span>@ace__barberr</span>
+      </a>
+      <p class="menu__addr"><a data-maps-link href="#" target="_blank" rel="noopener">33 Rue du Général Leclerc · 67116 Reichstett</a></p>
     </div>
   </div>
 
@@ -106,8 +112,8 @@
         <span>Reichstett — Grand Est</span>
       </div>
       <div class="hero__meta hero__meta--tr reveal">
-        <span class="hero__rate">5,0 <em>★</em></span>
-        <span>≈ 28 avis Google</span>
+        <span class="hero__rate"><span data-google-rating>5,0</span> <em>★</em></span>
+        <span><span data-google-count>28</span> avis Google</span>
       </div>
 
       <div class="hero__center">
@@ -275,7 +281,18 @@
 
         <div class="place__cta reveal">
           <a class="btn btn--solid" data-booking-link href="#" target="_blank" rel="noopener">Prendre rendez-vous</a>
-          <a class="btn btn--line" data-maps-link href="#" target="_blank" rel="noopener">Itinéraire →</a>
+          <a class="btn btn--line" data-maps-link href="#" target="_blank" rel="noopener noreferrer">Itinéraire →</a>
+        </div>
+
+        <!-- Carte Google : chargée uniquement après consentement (cookies cartographie) -->
+        <div class="place__map reveal" data-map>
+          <div class="map-off" data-map-placeholder>
+            <p>La carte Google Maps est désactivée tant que vous n'avez pas accepté les cookies de cartographie.</p>
+            <div class="map-off__actions">
+              <button type="button" class="btn btn--line" data-map-enable>Afficher la carte</button>
+              <a class="map-off__alt" data-maps-link href="#" target="_blank" rel="noopener noreferrer">Ouvrir dans Google Maps →</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -285,16 +302,20 @@
       <div class="wrap">
         <span class="idx reveal">06 — Réputation</span>
         <div class="rep__hero">
-          <span class="rep__score reveal">5,0</span>
+          <span class="rep__score reveal" data-google-rating>5,0</span>
           <div class="rep__side">
             <span class="rep__stars reveal" aria-hidden="true">★★★★★</span>
-            <p class="rep__line reveal">Une note parfaite, construite sur la régularité et le détail.</p>
+            <p class="rep__line reveal">Une note construite sur la régularité et le détail, avis après avis.</p>
           </div>
         </div>
         <div class="rep__stats">
-          <div class="rep__stat reveal"><strong>≈ 28</strong><span>avis Google</span></div>
-          <div class="rep__stat reveal"><strong>5,0</strong><span>note Fresha</span></div>
+          <div class="rep__stat reveal"><strong><span data-google-count>28</span></strong><span>avis Google</span></div>
+          <div class="rep__stat reveal"><strong data-google-rating>5,0</strong><span>note Google</span></div>
           <div class="rep__stat reveal"><strong>Mar–Sam</strong><span>10:00 – 19:00</span></div>
+        </div>
+        <p class="rep__note reveal" data-google-updated hidden></p>
+        <div class="rep__cta reveal">
+          <a class="btn btn--line" data-google-reviews-link href="#" target="_blank" rel="noopener noreferrer">Voir tous nos avis Google →</a>
         </div>
       </div>
     </section>
@@ -326,18 +347,32 @@
           <div class="foot__name">ACE BARBER</div>
           <div class="foot__tag">Barber club — Reichstett</div>
         </div>
+        <a class="foot__ig" href="https://www.instagram.com/ace__barberr/" target="_blank" rel="noopener noreferrer" aria-label="Instagram d'Ace Barber (nouvel onglet)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+          <span>@ace__barberr</span>
+        </a>
       </div>
+
       <div class="foot__col">
-        <h4>Salon</h4>
-        <a data-maps-link href="#" target="_blank" rel="noopener">33 Rue du Général Leclerc, 67116 Reichstett</a>
+        <h4>Contact</h4>
+        <a data-maps-link href="#" target="_blank" rel="noopener noreferrer">33 Rue du Général Leclerc, 67116 Reichstett</a>
         <a data-phone-link href="#">07 67 99 17 19</a>
         <span>Mardi – Samedi · 10:00 – 19:00</span>
       </div>
+
       <div class="foot__col">
-        <h4>Réserver</h4>
-        <a data-booking-link href="#" target="_blank" rel="noopener">Rendez-vous en ligne (Fresha)</a>
-        <a href="#services">Voir les prestations</a>
-        <a href="#top" data-top>Haut de page ↑</a>
+        <h4>Réserver &amp; suivre</h4>
+        <a data-booking-link href="#" target="_blank" rel="noopener">Prendre rendez-vous (Fresha)</a>
+        <a data-google-reviews-link href="#" target="_blank" rel="noopener noreferrer">Avis Google</a>
+        <a href="https://www.instagram.com/ace__barberr/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
+
+      <div class="foot__col">
+        <h4>Informations</h4>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="confidentialite.html">Politique de confidentialité</a>
+        <a href="cookies.html">Politique de cookies</a>
+        <button type="button" class="foot__link-btn" data-cookie-manage>Gérer mes cookies</button>
       </div>
     </div>
     <div class="wrap foot__bottom">
@@ -353,6 +388,52 @@
       <span>Appeler</span>
     </a>
     <a class="dock__btn dock__btn--book" data-booking-link href="#" target="_blank" rel="noopener">Prendre rendez-vous</a>
+  </div>
+
+  <!-- ============ CONSENTEMENT COOKIES ============ -->
+  <div class="cookie" data-cookie-banner hidden role="dialog" aria-modal="false" aria-label="Gestion des cookies">
+    <div class="cookie__inner">
+      <div class="cookie__text">
+        <h3>Cookies &amp; vie privée</h3>
+        <p>Ce site n'utilise aucun cookie publicitaire ni traceur. Seule la carte Google Maps (facultative) dépose des cookies lorsqu'elle est chargée. <a href="cookies.html">En savoir plus</a>.</p>
+      </div>
+      <div class="cookie__actions">
+        <button type="button" class="btn btn--line" data-cookie="reject">Tout refuser</button>
+        <button type="button" class="btn btn--line" data-cookie="customize">Personnaliser</button>
+        <button type="button" class="btn btn--line" data-cookie="accept">Tout accepter</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cookie-modal" data-cookie-modal hidden role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
+    <div class="cookie-modal__backdrop" data-cookie-close></div>
+    <div class="cookie-modal__panel">
+      <div class="cookie-modal__head">
+        <h3 id="cookie-modal-title">Préférences de cookies</h3>
+        <button type="button" class="cookie-modal__x" data-cookie-close aria-label="Fermer">&times;</button>
+      </div>
+      <div class="cookie-modal__body">
+        <div class="cookie-cat">
+          <div class="cookie-cat__row">
+            <span class="cookie-cat__name">Strictement nécessaires</span>
+            <span class="cookie-cat__always">Toujours actifs</span>
+          </div>
+          <p>Mémorisation de votre choix de cookies. Indispensables au fonctionnement du site, aucun traceur.</p>
+        </div>
+        <div class="cookie-cat">
+          <label class="cookie-cat__row">
+            <span class="cookie-cat__name">Carte Google Maps</span>
+            <input type="checkbox" data-cookie-cat="maps" />
+            <span class="cookie-switch" aria-hidden="true"></span>
+          </label>
+          <p>Affiche la carte interactive dans « Le salon ». Google peut déposer des cookies. Désactivé par défaut ; l'itinéraire reste accessible via un lien externe.</p>
+        </div>
+      </div>
+      <div class="cookie-modal__foot">
+        <button type="button" class="btn btn--line" data-cookie="reject">Tout refuser</button>
+        <button type="button" class="btn btn--solid" data-cookie="save">Enregistrer mes choix</button>
+      </div>
+    </div>
   </div>
 
   <script src="assets/js/main.js" defer></script>

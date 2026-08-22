@@ -6,8 +6,14 @@
 const CONFIG = {
   phone: "+33767991719",
   phoneDisplay: "07 67 99 17 19",
+  // FRESHA = réservations uniquement
   bookingUrl: "https://www.fresha.com/fr/a/ace-barber-reichstett-33-rue-du-general-leclerc-bswocfue/booking",
   address: "33 Rue du Général Leclerc, 67116 Reichstett",
+  businessName: "Ace Barber",
+  // GOOGLE = avis uniquement. Lien vers la fiche Google (avis).
+  // Idéalement : "https://search.google.com/local/reviews?placeid=VOTRE_PLACE_ID"
+  googleReviewsUrl: "",
+  instagramUrl: "https://www.instagram.com/ace__barberr/",
 };
 
 /* =====================================================================
@@ -23,13 +29,77 @@ const CONFIG = {
 
   function safe(fn) { try { fn(); } catch (e) { if (window.console) console.warn("[Ace]", e); } }
 
+  /* ---------- Footer partagé des pages légales (injecté avant le câblage) ---------- */
+  safe(function () {
+    var slot = doc.querySelector("[data-legal-footer]");
+    if (!slot) return;
+    slot.innerHTML =
+      '<div class="wrap foot__grid">' +
+        '<div class="foot__brand"><span class="brand__mark">A</span>' +
+          '<div><div class="foot__name">ACE BARBER</div><div class="foot__tag">Barber club — Reichstett</div></div>' +
+          '<a class="foot__ig" href="' + CONFIG.instagramUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Instagram d\'Ace Barber (nouvel onglet)">' +
+          '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg><span>@ace__barberr</span></a>' +
+        '</div>' +
+        '<div class="foot__col"><h4>Contact</h4>' +
+          '<a data-maps-link href="#" target="_blank" rel="noopener noreferrer">33 Rue du Général Leclerc, 67116 Reichstett</a>' +
+          '<a data-phone-link href="#">07 67 99 17 19</a>' +
+          '<span>Mardi – Samedi · 10:00 – 19:00</span></div>' +
+        '<div class="foot__col"><h4>Réserver &amp; suivre</h4>' +
+          '<a data-booking-link href="#" target="_blank" rel="noopener">Prendre rendez-vous (Fresha)</a>' +
+          '<a data-google-reviews-link href="#" target="_blank" rel="noopener noreferrer">Avis Google</a>' +
+          '<a href="' + CONFIG.instagramUrl + '" target="_blank" rel="noopener noreferrer">Instagram</a></div>' +
+        '<div class="foot__col"><h4>Informations</h4>' +
+          '<a href="mentions-legales.html">Mentions légales</a>' +
+          '<a href="confidentialite.html">Politique de confidentialité</a>' +
+          '<a href="cookies.html">Politique de cookies</a>' +
+          '<button type="button" class="foot__link-btn" data-cookie-manage>Gérer mes cookies</button></div>' +
+      '</div>' +
+      '<div class="wrap foot__bottom"><span>© <span data-year>2026</span> Ace Barber. Tous droits réservés.</span>' +
+      '<span class="foot__ace">A · C · E</span></div>';
+  });
+
   /* ---------- Liens dynamiques ---------- */
   safe(function () {
     var maps = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.address);
+    var reviews = CONFIG.googleReviewsUrl ||
+      "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.businessName + " " + CONFIG.address);
     doc.querySelectorAll("[data-phone-link]").forEach(function (el) { el.href = "tel:" + CONFIG.phone; });
     doc.querySelectorAll("[data-booking-link]").forEach(function (el) { el.href = CONFIG.bookingUrl; });
     doc.querySelectorAll("[data-maps-link]").forEach(function (el) { el.href = maps; });
+    doc.querySelectorAll("[data-google-reviews-link]").forEach(function (el) { el.href = reviews; });
     var y = doc.querySelector("[data-year]"); if (y) y.textContent = String(new Date().getFullYear());
+  });
+
+  /* ---------- Avis Google (note + nombre) depuis un JSON servi en local ----------
+     Les données sont récupérées côté serveur (GitHub Action + API Places) et
+     écrites dans assets/data/google-reviews.json. Le navigateur ne fait qu'une
+     requête MÊME ORIGINE : aucune clé API, aucun service tiers, aucun cookie.
+     En cas d'échec, les valeurs statiques du HTML sont conservées. */
+  safe(function () {
+    if (!("fetch" in window)) return;
+    fetch("assets/data/google-reviews.json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        var rating = Number(d.rating), count = Number(d.reviewCount);
+        if (Number.isFinite(rating) && rating > 0 && rating <= 5) {
+          var txt = rating.toFixed(1).replace(".", ",");
+          doc.querySelectorAll("[data-google-rating]").forEach(function (el) { el.textContent = txt; });
+        }
+        if (Number.isFinite(count) && count >= 0) {
+          doc.querySelectorAll("[data-google-count]").forEach(function (el) { el.textContent = String(Math.round(count)); });
+        }
+        var upd = doc.querySelector("[data-google-updated]");
+        if (upd && d.source === "google-places" && d.lastUpdated) {
+          var dt = new Date(d.lastUpdated);
+          if (!isNaN(dt)) {
+            upd.textContent = "Note et avis synchronisés depuis Google le " +
+              dt.toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" }) + ".";
+            upd.hidden = false;
+          }
+        }
+      })
+      .catch(function () { /* on garde les valeurs statiques */ });
   });
 
   /* ---------- Services : clic = réservation ---------- */
@@ -199,6 +269,107 @@ const CONFIG = {
         e.preventDefault();
         t.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
       });
+    });
+  });
+
+  /* =====================================================================
+     CONSENTEMENT COOKIES
+     - Aucun traceur n'est chargé avant l'accord.
+     - Seule la carte Google Maps est concernée (elle dépose des cookies).
+     - "Refuser" est aussi simple qu'"Accepter" ; fermer ≠ accepter.
+     ===================================================================== */
+  safe(function () {
+    var KEY = "ace_consent_v1";
+    var banner = doc.querySelector("[data-cookie-banner]");
+    var modal = doc.querySelector("[data-cookie-modal]");
+    var mapWrap = doc.querySelector("[data-map]");
+    var mapToggle = doc.querySelector('[data-cookie-cat="maps"]');
+
+    function store(get, val) {
+      try {
+        if (get) { var v = localStorage.getItem(KEY); return v ? JSON.parse(v) : null; }
+        localStorage.setItem(KEY, JSON.stringify(val)); return true;
+      } catch (e) { return get ? null : false; }
+    }
+
+    function mapEmbedSrc() {
+      return "https://www.google.com/maps?q=" + encodeURIComponent(CONFIG.address) +
+        "&hl=fr&z=16&output=embed";
+    }
+    function loadMap() {
+      if (!mapWrap || mapWrap.querySelector("iframe")) return;
+      var ph = mapWrap.querySelector("[data-map-placeholder]");
+      if (ph) ph.hidden = true;
+      var f = doc.createElement("iframe");
+      f.src = mapEmbedSrc();
+      f.title = "Carte Google Maps — Ace Barber, 33 Rue du Général Leclerc, Reichstett";
+      f.loading = "lazy";
+      f.referrerPolicy = "no-referrer-when-downgrade";
+      f.setAttribute("allowfullscreen", "");
+      mapWrap.appendChild(f);
+    }
+    function unloadMap() {
+      if (!mapWrap) return;
+      var f = mapWrap.querySelector("iframe"); if (f) f.remove();
+      var ph = mapWrap.querySelector("[data-map-placeholder]"); if (ph) ph.hidden = false;
+    }
+
+    function apply(consent) {
+      if (consent && consent.maps) loadMap(); else unloadMap();
+    }
+    function hideBanner() { if (banner) banner.hidden = true; }
+    function showBanner() { if (banner) banner.hidden = false; }
+    function openModal() {
+      if (!modal) return;
+      var c = store(true) || { maps: false };
+      if (mapToggle) mapToggle.checked = !!c.maps;
+      modal.hidden = false;
+    }
+    function closeModal() { if (modal) modal.hidden = true; }
+
+    function decide(consent) {
+      store(false, { maps: !!consent.maps, ts: Date.now() });
+      apply(consent);
+      hideBanner(); closeModal();
+    }
+
+    // État initial
+    var existing = store(true);
+    if (existing) { apply(existing); hideBanner(); }
+    else { showBanner(); } // non décidé -> bannière visible, carte OFF
+
+    // Actions
+    doc.querySelectorAll('[data-cookie="accept"]').forEach(function (b) {
+      b.addEventListener("click", function () { decide({ maps: true }); });
+    });
+    doc.querySelectorAll('[data-cookie="reject"]').forEach(function (b) {
+      b.addEventListener("click", function () { decide({ maps: false }); });
+    });
+    doc.querySelectorAll('[data-cookie="customize"]').forEach(function (b) {
+      b.addEventListener("click", openModal);
+    });
+    doc.querySelectorAll('[data-cookie="save"]').forEach(function (b) {
+      b.addEventListener("click", function () { decide({ maps: mapToggle ? !!mapToggle.checked : false }); });
+    });
+    doc.querySelectorAll("[data-cookie-manage]").forEach(function (b) {
+      b.addEventListener("click", function (e) { e.preventDefault(); openModal(); });
+    });
+    // Fermer la modale sans choisir = pas d'acceptation
+    doc.querySelectorAll("[data-cookie-close]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        closeModal();
+        if (!store(true)) showBanner(); // aucune décision -> on garde la bannière
+      });
+    });
+    // Bouton "Afficher la carte" dans la section Le salon
+    doc.querySelectorAll("[data-map-enable]").forEach(function (b) {
+      b.addEventListener("click", function () { decide({ maps: true }); });
+    });
+    // Échap ferme la modale
+    window.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && modal && !modal.hidden) {
+        closeModal(); if (!store(true)) showBanner();
+      }
     });
   });
 })();
