@@ -447,6 +447,10 @@ a.place__link:hover { color: var(--ace-bright); }
 .foot__col a, .foot__col span { display: block; color: var(--ivory-2); font-size: .9rem; margin-bottom: 10px; transition: color .3s; }
 .foot__col a:hover { color: var(--ivory); }
 .foot__bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 24px 0 34px; color: rgba(236,231,219,.5); font-size: .78rem; }
+.foot__sign { display: inline-flex; align-items: center; gap: 12px; }
+.foot__sign-logo { width: 30px; height: 30px; flex: none; object-fit: cover; border-radius: 50%; display: none;
+  box-shadow: inset 0 0 0 1px rgba(240, 237, 230, .35), 0 0 0 1px rgba(240, 237, 230, .12); }
+.foot__sign.has-logo .foot__sign-logo { display: block; }
 .foot__ace { letter-spacing: .4em; color: var(--ace-bright); }
 
 /* =====================================================================

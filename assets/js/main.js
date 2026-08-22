@@ -38,7 +38,7 @@ const CONFIG = {
         '<div class="foot__brand"><img class="foot__logo" data-foot-logo src="assets/img/logo.jpg" alt="Ace Barber" width="52" height="52" /><span class="brand__mark foot__mark">A</span>' +
           '<div><div class="foot__name">ACE BARBER</div><div class="foot__tag">Barbier — Reichstett</div></div>' +
           '<a class="foot__ig" href="' + CONFIG.instagramUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Instagram d\'Ace Barber (nouvel onglet)">' +
-          '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg><span>@ace__barberr</span></a>' +
+          '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="url(#ig-grad-inj)" stroke-width="1.7" aria-hidden="true"><defs><linearGradient id="ig-grad-inj" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#feda75"/><stop offset=".3" stop-color="#fa7e1e"/><stop offset=".55" stop-color="#d62976"/><stop offset=".8" stop-color="#962fbf"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="url(#ig-grad-inj)" stroke="none"/></svg><span>@ace__barberr</span></a>' +
         '</div>' +
         '<div class="foot__col"><h4>Contact</h4>' +
           '<a data-maps-link href="#" target="_blank" rel="noopener noreferrer">33 Rue du Général Leclerc, 67116 Reichstett</a>' +
@@ -54,7 +54,7 @@ const CONFIG = {
           '<a href="cookies.html">Politique de cookies</a></div>' +
       '</div>' +
       '<div class="wrap foot__bottom"><span>© <span data-year>2026</span> Ace Barber. Tous droits réservés.</span>' +
-      '<span class="foot__ace">A · C · E</span></div>';
+      '<span class="foot__sign"><img class="foot__sign-logo" data-foot-sign-logo src="assets/img/logo.jpg" alt="Ace Barber" width="30" height="30" /><span class="foot__ace">A · C · E</span></span></div>';
   });
 
   /* ---------- Liens dynamiques ---------- */
@@ -286,6 +286,13 @@ const CONFIG = {
       var brand = img.closest(".foot__brand");
       if (!brand) return;
       var ok = function () { if (img.naturalWidth > 0) brand.classList.add("has-logo"); };
+      if (img.complete) ok();
+      img.addEventListener("load", ok);
+    });
+    doc.querySelectorAll("[data-foot-sign-logo]").forEach(function (img) {
+      var sign = img.closest(".foot__sign");
+      if (!sign) return;
+      var ok = function () { if (img.naturalWidth > 0) sign.classList.add("has-logo"); };
       if (img.complete) ok();
       img.addEventListener("load", ok);
     });
