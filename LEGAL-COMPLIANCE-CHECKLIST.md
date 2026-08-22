@@ -40,11 +40,11 @@
 - [x] Avis Google récupérés côté serveur → JSON même origine : **aucun cookie tiers** côté navigateur.
 
 ### Logo
-- [x] Logo Ace Barber intégré dans l'en-tête (header) de toutes les pages, en rond.
-- [x] Repli automatique sur le mot-clé « A / ACE BARBER » si le fichier logo est absent
+- [x] Logo Ace Barber (`assets/img/logo.jpg`) intégré dans l'en-tête (header) de toutes les pages, en rond.
+- [x] Le logo étant un disque sombre, il est cerclé d'un léger anneau ivoire et accompagné du
+      mot-clé « ACE BARBER » (lisibilité sur fond sombre).
+- [x] Repli automatique sur le monogramme « A / ACE BARBER » si le fichier logo est absent
       (détection via `data-brand-logo` + classe `brand--has-logo` en JS).
-- [ ] **Le propriétaire doit déposer le fichier** `assets/img/logo.png` dans le dépôt
-      (le logo n'a pas pu être récupéré automatiquement depuis Instagram).
 
 ### Pages juridiques
 - [x] `mentions-legales.html`, `confidentialite.html`, `cookies.html` créées et stylées.
@@ -89,10 +89,11 @@
 - [x] Raison sociale / statut juridique : **Ace Barber — SASU**.
 - [x] Responsable / directeur de la publication : **Omer Sunbul** (président).
 - [x] **SIREN 104 492 947**, **RCS Strasbourg**, **APE 9602A — Coiffure**, immatriculation **28 mai 2026**.
-- [ ] **SIRET** complet (SIREN + NIC à 5 chiffres) — à compléter.
-- [ ] **Capital social** — à compléter.
-- [ ] **TVA intracommunautaire** (si assujetti) — à compléter.
-- [ ] **Adresse e-mail** de contact — à compléter.
+- [x] **SIRET** (siège) : 104 492 947 00015.
+- [x] **TVA intracommunautaire** : FR 73 104 492 947.
+- [x] **E-mail** : non fourni → contact par **téléphone** (suffisant au titre de la LCEN) ;
+      champ e-mail retiré des pages. À ajouter si une adresse est créée ultérieurement.
+- [ ] **Capital social** : non renseigné (à ajouter si tu souhaites le mentionner).
 - [x] Hébergeur : **GitHub Pages** (à mettre à jour si changement d'hébergeur).
 - [x] Date de « dernière mise à jour » : 13 août 2026.
 

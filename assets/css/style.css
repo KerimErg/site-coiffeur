@@ -184,11 +184,14 @@ body.has-cursor { cursor: none; }
   font-family: var(--display); font-size: 1.15rem; line-height: 1; padding-top: 2px;
 }
 .brand__word { font-family: var(--ui); font-weight: 700; letter-spacing: .2em; font-size: .82rem; }
-/* Logo image (affiché dès que assets/img/logo.png est présent ; sinon repli sur le monogramme) */
-.brand__logo { width: 46px; height: 46px; object-fit: cover; border-radius: 50%; display: none; }
+/* Logo image (affiché dès que assets/img/logo.jpg est présent ; sinon repli sur le monogramme).
+   Le logo est un disque sombre : on l'entoure d'un léger anneau ivoire pour le détacher du
+   header sombre, et on conserve le mot-clé « ACE BARBER » à côté pour la lisibilité. */
+.brand__logo { width: 44px; height: 44px; flex: none; object-fit: cover; border-radius: 50%; display: none;
+  box-shadow: inset 0 0 0 1px rgba(240, 237, 230, .35), 0 0 0 1px rgba(240, 237, 230, .12); }
 .brand__fallback { display: inline-flex; align-items: center; gap: 12px; }
 .brand--has-logo .brand__logo { display: block; }
-.brand--has-logo .brand__fallback { display: none; }
+.brand--has-logo .brand__mark { display: none; }
 
 .nav__links { display: flex; gap: 30px; }
 .nav__links a {
