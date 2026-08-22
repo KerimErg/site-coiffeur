@@ -304,6 +304,7 @@ const CONFIG = {
       f.src = mapEmbedSrc();
       f.title = "Carte Google Maps — Ace Barber, 33 Rue du Général Leclerc, Reichstett";
       f.loading = "lazy";
+      f.width = "100%"; f.height = "320";
       f.referrerPolicy = "no-referrer-when-downgrade";
       f.setAttribute("allowfullscreen", "");
       mapWrap.appendChild(f);
