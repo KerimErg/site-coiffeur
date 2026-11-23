@@ -4,8 +4,8 @@
    ⚙️ CONFIGURATION — modifiez uniquement ce bloc.
    ===================================================================== */
 const CONFIG = {
-  phone: "+33767991719",
-  phoneDisplay: "07 67 99 17 19",
+  phone: "+33650135614",
+  phoneDisplay: "06 50 13 56 14",
   // FRESHA = réservations uniquement
   bookingUrl: "https://www.fresha.com/fr/a/ace-barber-reichstett-33-rue-du-general-leclerc-bswocfue/booking",
   address: "33 Rue du Général Leclerc, 67116 Reichstett",
@@ -13,7 +13,7 @@ const CONFIG = {
   // GOOGLE = avis uniquement. Lien vers la fiche Google (avis).
   // Idéalement : "https://search.google.com/local/reviews?placeid=VOTRE_PLACE_ID"
   googleReviewsUrl: "",
-  instagramUrl: "https://www.instagram.com/ace__barberr/",
+  instagramUrl: "https://www.instagram.com/ace_bvrber/",
 };
 
 /* =====================================================================
@@ -38,11 +38,11 @@ const CONFIG = {
         '<div class="foot__brand"><img class="foot__logo" data-foot-logo src="assets/img/logo.jpg" alt="Ace Barber" width="52" height="52" /><span class="brand__mark foot__mark">A</span>' +
           '<div><div class="foot__name">ACE BARBER</div><div class="foot__tag">Barbier — Reichstett</div></div>' +
           '<a class="foot__ig" href="' + CONFIG.instagramUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Instagram d\'Ace Barber (nouvel onglet)">' +
-          '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="url(#ig-grad-inj)" stroke-width="1.7" aria-hidden="true"><defs><linearGradient id="ig-grad-inj" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#feda75"/><stop offset=".3" stop-color="#fa7e1e"/><stop offset=".55" stop-color="#d62976"/><stop offset=".8" stop-color="#962fbf"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="url(#ig-grad-inj)" stroke="none"/></svg><span>@ace__barberr</span></a>' +
+          '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="url(#ig-grad-inj)" stroke-width="1.7" aria-hidden="true"><defs><linearGradient id="ig-grad-inj" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#feda75"/><stop offset=".3" stop-color="#fa7e1e"/><stop offset=".55" stop-color="#d62976"/><stop offset=".8" stop-color="#962fbf"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="url(#ig-grad-inj)" stroke="none"/></svg><span>@ace_bvrber</span></a>' +
         '</div>' +
         '<div class="foot__col"><h4>Contact</h4>' +
           '<a data-maps-link href="#" target="_blank" rel="noopener noreferrer">33 Rue du Général Leclerc, 67116 Reichstett</a>' +
-          '<a data-phone-link href="#">07 67 99 17 19</a>' +
+          '<a data-phone-link href="#">06 50 13 56 14</a>' +
           '<span>Mardi – Samedi · 10:00 – 19:00</span></div>' +
         '<div class="foot__col"><h4>Réserver &amp; suivre</h4>' +
           '<a data-booking-link href="#" target="_blank" rel="noopener">Prendre rendez-vous (Fresha)</a>' +
