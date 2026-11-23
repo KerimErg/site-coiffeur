@@ -13,7 +13,7 @@ const CONFIG = {
   // GOOGLE = avis uniquement. Lien vers la fiche Google (avis).
   // Idéalement : "https://search.google.com/local/reviews?placeid=VOTRE_PLACE_ID"
   googleReviewsUrl: "",
-  instagramUrl: "https://www.instagram.com/ace_bvrber/",
+  instagramUrl: "https://www.instagram.com/ace_bvrber?dmpr=MXY1aDE3MzB4eHllOA%3D%3D",
 };
 
 /* =====================================================================
