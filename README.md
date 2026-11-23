@@ -43,8 +43,8 @@ Tous les boutons « Prendre rendez-vous » du site se mettront à jour automatiq
 Dans le même bloc `CONFIG` de `assets/js/main.js` :
 
 ```js
-phone: "+33767991719",           // utilisé pour l'appel (tel:)
-phoneDisplay: "07 67 99 17 19",  // texte affiché
+phone: "+33650135614",           // utilisé pour l'appel (tel:)
+phoneDisplay: "06 50 13 56 14",  // texte affiché
 address: "33 Rue du Général Leclerc, 67116 Reichstett", // lien Google Maps
 ```
 
@@ -100,7 +100,7 @@ palette (noir, blanc cassé, or) et polices (Manrope + Fraunces).
 
 - **Nom** : Ace Barber
 - **Adresse** : 33 Rue du Général Leclerc, 67116 Reichstett, France
-- **Téléphone** : +33 7 67 99 17 19
+- **Téléphone** : +33 6 50 13 56 14
 - **Horaires** : Mar–Sam 10:00–19:00 · Lun & Dim fermé
 - **Réputation** : 5,0/5 (~28 avis Google) · 5,0 sur Fresha
 

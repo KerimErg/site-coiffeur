@@ -9,7 +9,7 @@
 ## ✅ ÉLÉMENTS MIS EN PLACE
 
 ### Instagram
-- [x] Lien vers le compte officiel `https://www.instagram.com/ace__barberr/`.
+- [x] Lien vers le compte officiel `https://www.instagram.com/ace_bvrber/`.
 - [x] Icône dans le header (desktop) + dans le menu mobile + dans le footer.
 - [x] `target="_blank"` + `rel="noopener noreferrer"` sur tous les liens Instagram.
 - [x] Aucun feed embarqué (pas de script tiers) — simple lien, comme demandé.
